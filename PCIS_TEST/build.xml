@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Enhance OpenJPA Entity for PCIS" default="enhance" basedir=".">
+	<property name="src.dir" value="${basedir}/src/hk/com/mtr/pcis/dao/entity" />
+	<property name="build.classes.dir" value="../PCIS_DAO/bin" />
+	<property name="websphere.home.dir" value="D:/App/IBM/WebSphere/AppServer" />
+	<property name="websphere.lib.dir" value="${websphere.home.dir}/lib" />
+	<property name="websphere.runtimes.dir" value="${websphere.home.dir}/runtimes" />
+
+	<path id="classpath">
+		<fileset dir="${basedir}/">
+			<include name="*.jar" />
+		</fileset>	
+		
+		<fileset dir="${websphere.lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${websphere.runtimes.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+
+		<pathelement location="${build.classes.dir}" />		
+		<pathelement location="${basedir}" />
+	</path>
+	
+
+	<target name="enhance">
+		<echo>Enhance JPA entity</echo>
+		<taskdef name="openjpac" classname="org.apache.openjpa.ant.PCEnhancerTask">
+			<classpath refid="classpath" />
+		</taskdef>
+
+		<openjpac>
+			<fileset dir="${build.classes.dir}/hk/com/mtr/pcis/dao/entity">
+				<include name="**/**/*.class" />
+			</fileset>
+			<classpath refid="classpath" />
+		</openjpac>
+	</target>
+
+</project>

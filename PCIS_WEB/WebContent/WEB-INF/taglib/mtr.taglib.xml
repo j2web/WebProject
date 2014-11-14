@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+
+<facelet-taglib>
+	<namespace>http://www.mtr.com.hk/jsf</namespace>
+	<tag>
+		<tag-name>datascroller</tag-name>
+		<source>datascroller.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>selectableColumn</tag-name>
+		<source>selectableColumn.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>actionColumn</tag-name>
+		<source>actionColumn.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>sortableColumn</tag-name>
+		<source>sortableColumn.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>messages</tag-name>
+		<source>messages.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>tabbar</tag-name>
+		<source>tabbar.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>tabItem</tag-name>
+		<source>tabItem.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>privilege</tag-name>
+		<source>privilege.xhtml</source>
+	</tag>
+
+	<tag>
+		<tag-name>recordNotFound</tag-name>
+		<source>recordNotFound.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>report</tag-name>
+		<source>report.xhtml</source>
+	</tag>
+</facelet-taglib>	

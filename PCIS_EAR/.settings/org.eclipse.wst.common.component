@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="PCIS_EAR">
+        <wb-resource deploy-path="/" source-path="/"/>
+        <dependent-module archiveName="PCIS_COMMON.jar" deploy-path="/" handle="module:/resource/PCIS_COMMON/PCIS_COMMON">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/resource/PCIS_FACADE/PCIS_FACADE">
+            <dependent-object>Module_1264124813058</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/resource/PCIS_DAO/PCIS_DAO">
+            <dependent-object>Module_1278405922459</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="PCIS_SERVICE.jar" deploy-path="/" handle="module:/resource/PCIS_SERVICE/PCIS_SERVICE">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/resource/PCIS_WEB/PCIS_WEB">
+            <dependent-object>Module_1278405922460</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/resource/MyFirstJSF/MyFirstJSF">
+            <dependent-object>Module_1415340192982</dependent-object>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

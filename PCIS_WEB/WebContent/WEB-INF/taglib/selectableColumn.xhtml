@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+	<c:set value="${empty disabled ? false : disabled}" var="disabled" />
+	<c:set value="${empty styleClass ? '' : styleClass}" var="styleClass" />
+	<a4j:loadScript src="/script/selectableColumn.js" />
+	<rich:column headerClass="#{styleClass}" styleClass="#{styleClass}">
+		<f:facet name="header">
+			<input type="checkbox" onclick="selectAll(this)" />
+		</f:facet>
+		<h:selectBooleanCheckbox value="#{vo['selected']}" onclick="selectCheckbox(this)" />
+	</rich:column>
+</ui:composition>

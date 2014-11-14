@@ -1,0 +1,68 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:mf="http://www.mtr.com.hk/jsf">
+	<rich:modalPanel id="#{id}" width="830" height="500" overlapEmbedObjects="true" zindex="1001">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="#{messages['label.mf.newApplicant.selectCompany']}" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<img src="${request.contextPath}/style/images/close.png" style="cursor: pointer" onclick="#{rich:component(id)}.hide()" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<table style="width: 100%;">
+				<tr>
+					<td><h:panelGrid columns="4" columnClasses="name,colon,value">
+						<h:outputLabel value="#{messages['label.co.companyMaint.companyType']}" />
+						<h:selectOneMenu value="#{selectCompanyAction.companyCriteriaVO.companyTypeCode}">
+							<s:selectItems var="item" value="#{listbox.allCompanyType}" label="#{item.description}" noSelectionLabel="" itemValue="#{item.companyTypeCode}" />
+						</h:selectOneMenu>
+						<h:outputLabel value="#{messages['label.co.companyMaint.companyCode']}" />
+						<h:inputText styleClass="input width-style-100" value="#{selectCompanyAction.companyCriteriaVO.companyCode}" required="false" />
+					</h:panelGrid></td>
+				</tr>
+				<tr>
+					<td nowrap="nowrap" style="text-align: right;"><a4j:commandButton styleClass="searchButton" actionListener="#{selectCompanyAction.doSearch}" value="#{messages['button.common.search']}"
+						reRender="opCompanyList" /></td>
+				</tr>
+			</table>
+			<a4j:outputPanel id="opCompanyList">
+				<mf:recordNotFound actionListener="#{selectCompanyAction}" />
+				<h:panelGroup rendered="#{selectCompanyAction.search and selectCompanyAction.pageDataModel.rowCount &gt; 0}">
+					<rich:dataTable id="dtCompanyList" columnClasses="text,text,text" rows="#{selectCompanyAction.pageSize}" value="#{selectCompanyAction.pageDataModel}" var="vo"
+						onRowMouseOut="PCIS.Layout.table.onRowMouseOut(this)" onRowMouseOver="PCIS.Layout.table.onRowMouseOver(this)"
+						onRowClick="jQuery('input:button',this)[0].click();#{rich:component(id)}.hide();this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}';">
+						<rich:column styleClass="width-style-150" headerClass="text-align-left">
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.co.companyMaint.type']}" />
+							</f:facet>
+							<h:outputText value="(#{vo.companyTypeCode}) #{vo.companyTypeDescription}" />
+						</rich:column>
+						<rich:column styleClass="width-style-30" headerClass="text-align-left">
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.co.companyMaint.code']}" />
+							</f:facet>
+							<h:outputText value="#{vo.companyCode}" />
+						</rich:column>
+						<rich:column styleClass="width-style-620" headerClass="text-align-left">
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.co.companyMaint.companyName']}" />
+							</f:facet>
+							<h:outputText value="#{vo.companyName}" />
+							<a4j:commandButton actionListener="#{selectCompanyAction.selectCompany}" style="display:none" reRender="#{reRender},opCompanyList">
+								<f:param name="#{constant['PARAMETER_KEY']}" value="${key}" />
+							</a4j:commandButton>
+						</rich:column>
+						<f:facet name="footer">
+							<mf:datascroller page="#{selectCompanyAction.currentPageIndex}" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGroup>
+			</a4j:outputPanel>
+		</h:form>
+	</rich:modalPanel>
+</ui:composition>

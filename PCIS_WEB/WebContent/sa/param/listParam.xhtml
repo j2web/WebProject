@@ -1,0 +1,70 @@
+<ui:composition xmlns:c="http://java.sun.com/jstl/core" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:mf="http://www.mtr.com.hk/jsf"
+	xmlns:mv="http://www.mtr.com.hk/jsf/validator" xmlns:mfn="http://www.mtr.com.hk/functions" template="/template/main-content.xhtml">
+	<!-- the tab menu -->
+	<ui:define name="tabbar">
+		<mf:tabbar>
+			<mf:tabItem active="true" label="#{messages['label.common.searchResult']}" url="${request.contextPath}/sa/param/listParam.jsf" />
+		</mf:tabbar>
+	</ui:define>
+	<!-- the main content -->
+	<ui:define name="body">
+		<div class="button-div"></div>
+		<mf:recordNotFound actionListener="#{listParamAction}"/>
+		<c:if test="${listParamAction.pageDataModel.rowCount > 0}">
+			<rich:dataTable id="paramList" columnClasses="text,text,text" rows="#{listParamAction.pageSize}" value="#{listParamAction.pageDataModel}" var="vo" >
+				<mf:sortableColumn styleClass="text" actionListener="#{listParamAction}" widthStyleClass="width-style-200" label="#{messages['label.sa.paramMaint.paramId']}" reRender="paramList" sortExpression="paramId">
+					<h:outputText value="#{vo.paramId}" />
+				</mf:sortableColumn>
+				<mf:sortableColumn styleClass="text" widthStyleClass="width-style-400" actionListener="#{listParamAction}" label="#{messages['label.sa.paramMaint.paramValue']}" reRender="paramList">
+					<!-- ################################### paramIntValue ########################################## -->
+					<s:decorate id="s1" rendered="#{vo.edit and not empty vo.paramIntValue}">
+						<h:inputText styleClass="input width-style-100" value="#{vo.paramIntValue}" required="true" maxlength="10">
+							<a4j:support event="onchange" ajaxSingle="true" reRender="s1" />
+							<mv:maxLengthValidator />
+							<mv:numberValidator precision="10" scale="0" />
+							<s:validate />
+						</h:inputText>
+						<span class="required">*</span><br/>
+					</s:decorate>
+					<h:outputLabel value="#{vo.paramIntValue}"  rendered="#{vo.none}"/>
+					<!-- ################################### paramIntValue ########################################## -->
+					
+					<!-- ################################### paramCharValue ######################################### -->
+					<s:decorate id="s2" rendered="#{vo.edit and not empty vo.paramCharValue}">
+						<h:inputText styleClass="input width-style-350" value="#{vo.paramCharValue}" required="true" maxlength="250">
+							<a4j:support event="onchange" ajaxSingle="true" reRender="s2" />
+							<mv:maxLengthValidator />
+							<s:validate />
+						</h:inputText>
+						<span class="required">*</span>
+					</s:decorate>
+					<h:outputLabel value="#{vo.paramCharValue}"  rendered="#{vo.none}" escape="false"/>
+					<!-- ################################### paramCharValue ######################################### -->
+					
+					<!-- ################################### paramDateValue ######################################### -->
+					<s:decorate id="s3" rendered="#{vo.edit and not empty vo.paramDateValue}">
+						<rich:calendar value="#{vo.paramDateValue}" inputClass="input width-style-100" required="true" enableManualInput="true" datePattern="#{systemUser.datePattern}">
+							<a4j:support event="oninputchange" ajaxSingle="true" reRender="s3" />
+							<a4j:support event="onchanged" ajaxSingle="true" reRender="s3" />							
+						</rich:calendar>
+						<span class="required">*</span>
+						<script language="javascript">
+						//<![CDATA[
+							   PCIS.DateUtil.bindAutoCompleterConverter();
+						//]]>
+						</script>
+					</s:decorate>
+					<h:outputLabel value="#{vo.paramDateValue}"  rendered="#{vo.none}">
+						<s:convertDateTime pattern="#{systemUser.datePattern}" />
+					</h:outputLabel>
+					<!-- ################################### paramDateValue ######################################### -->
+				</mf:sortableColumn>
+				<mf:sortableColumn styleClass="text" actionListener="#{listParamAction}" widthStyleClass="width-style-400" label="#{messages['label.sa.paramMaint.description']}" reRender="paramList">
+					<h:outputText value="#{vo.description}"  escape="false"/>
+				</mf:sortableColumn>
+				<mf:actionColumn actionListener="#{listParamAction}" vo="#{vo}" updatePrivilegeId="#{constant['ParamMaint.UPDATE_PARAM']}"/>
+			</rich:dataTable>
+		</c:if>
+	</ui:define>
+</ui:composition>

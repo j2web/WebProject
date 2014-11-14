@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich">
+	<c:set value="sort_${fn:replace(sortExpression, '\\.', '_')}_${id}" var="jsFnName" />
+	<c:set value="${empty widthStyleClass ? '' : widthStyleClass}" var="widthStyleClass" />
+	<c:if test="${fn:length(actionListener['sortedExpression']) == 1}">
+		<c:set value="${actionListener['sortedExpression'][0]}" var="sortedExpression" />
+	</c:if>
+	<c:if test="${sortedExpression == sortExpression}">
+		<c:choose>
+			<c:when test="${empty actionListener['order']}">
+				<c:set value="sort-asc" var="sortedClass" />
+			</c:when>
+			<c:otherwise>
+				<c:set value="${actionListener['order'][0] == 'ASC' ? 'sort-asc' : 'sort-desc'}" var="sortedClass" />
+			</c:otherwise>
+		</c:choose>
+	</c:if>
+	<c:set value="${actionListener['search']}" var="canSort" />
+	<rich:column headerClass=" #{widthStyleClass}" styleClass="#{widthStyleClass}">
+		<f:facet name="header">
+			<c:choose>
+				<c:when test="${canSort}">
+					<a4j:outputPanel layout="block" style="width:100%" onclick="#{empty sortExpression ? '(function(){})' : jsFnName}()"
+						styleClass="#{widthStyleClass} #{styleClass} #{empty sortExpression ? 'table-not-sortable' : 'table-sortable'}">
+						<a4j:jsFunction ajaxSingle="true" actionListener="#{actionListener['sort']}" immediate="true" name="#{jsFnName}" oncomplete="#{oncomplete}" reRender="#{reRender}" rendered="#{not empty sortExpression}">
+							<f:param name="sortColumn" value="#{sortExpression}" />
+						</a4j:jsFunction>
+						<div class="#{sortedClass}">#{label}<h:graphicImage styleClass="x-grid-sort-icon" url="/style/images/s.gif" /></div>
+					</a4j:outputPanel>
+				</c:when>
+				<c:otherwise>
+					<a4j:outputPanel layout="block" styleClass="#{widthStyleClass} #{styleClass} table-not-sortable">						
+				 #{label}<h:graphicImage styleClass="x-grid-sort-icon" url="/style/images/s.gif" />
+					</a4j:outputPanel>
+				</c:otherwise>
+			</c:choose>
+		</f:facet>
+		<ui:insert />
+	</rich:column>
+</ui:composition>

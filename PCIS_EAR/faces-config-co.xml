@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+	
+	<navigation-rule>
+		<from-view-id>/co/companytype/searchCompanyType.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>searchCompanyType</from-outcome>
+			<to-view-id>/co/companytype/listCompanyType.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<from-view-id>/co/cardexpirydate/searchCardExpiryDate.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>searchCardExpiryDate</from-outcome>
+			<to-view-id>/co/cardexpirydate/listCardExpiryDate.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/co/company/searchCompany.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>searchCompany</from-outcome>
+			<to-view-id>/co/company/listCompany.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

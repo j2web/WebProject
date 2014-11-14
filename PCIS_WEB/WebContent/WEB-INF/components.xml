@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<components xmlns="http://jboss.com/products/seam/components"
+	xmlns:core="http://jboss.com/products/seam/core" xmlns:transaction="http://jboss.com/products/seam/transaction"
+	xmlns:persistence="http://jboss.com/products/seam/persistence"
+	xmlns:drools="http://jboss.com/products/seam/drools" xmlns:bpm="http://jboss.com/products/seam/bpm"
+	xmlns:remoting="http://jboss.com/products/seam/remoting"
+	xmlns:security="http://jboss.com/products/seam/security" xmlns:mail="http://jboss.com/products/seam/mail"
+	xmlns:web="http://jboss.com/products/seam/web" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/core xsd/core-2.2.xsd
+                 http://jboss.com/products/seam/persistence xsd/persistence-2.2.xsd
+                 http://jboss.com/products/seam/drools xsd/drools-2.2.xsd
+                 http://jboss.com/products/seam/bpm xsd/bpm-2.2.xsd
+                 http://jboss.com/products/seam/security xsd/security-2.2.xsd
+                 http://jboss.com/products/seam/mail xsd/mail-2.2.xsd
+                 http://jboss.com/products/seam/web xsd/web-2.2.xsd  
+                 http://jboss.com/products/seam/components xsd/components-2.2.xsd  http://jboss.com/products/seam/transaction xsd/transaction-2.2.xsd http://jboss.com/products/seam/remoting xsd/remoting-2.2.xsd">
+
+
+	<core:init debug="false" transaction-management-enabled="false" />
+	<core:resource-loader>
+		<core:bundle-names>
+			<value>messages</value>
+			<value>messages-sa</value>
+			<value>menu</value>
+		</core:bundle-names>
+	</core:resource-loader>
+	<core:manager concurrent-request-timeout="500"
+		conversation-timeout="120000" conversation-id-parameter="cid"
+		parent-conversation-id-parameter="pid" />
+
+
+	<web:exception-filter url-pattern="*.jsf"></web:exception-filter>
+
+	<web:character-encoding-filter encoding="UTF-8"
+		override-client="true" url-pattern="*.jsf"></web:character-encoding-filter>
+
+
+	<event type="org.jboss.seam.security.notLoggedIn">
+		<action execute="#{redirect.captureCurrentView}" />
+	</event>
+	<event type="org.jboss.seam.security.loginSuccessful">
+		<action execute="#{redirect.returnToCapturedView}" />
+	</event>
+	<transaction:no-transaction />
+</components>

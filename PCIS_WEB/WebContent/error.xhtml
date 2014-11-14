@@ -1,0 +1,31 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a4j="http://richfaces.org/a4j" xmlns:mf="http://www.mtr.com.hk/jsf" contentType="text/html">
+	<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><h:outputText value="#{messages['msg.common.title']}" /></title>
+	<a4j:loadStyle src="resource:///style/theme.xcss" />
+	<a4j:loadStyle src="/style/master.css" />
+	<a4j:loadScript src="/script///jquery-1.4.2.js" />
+	</head>
+	<body>
+	<h:form>
+		<div class="container">
+		<div class="header"><ui:include src="/common/header.xhtml" /></div>
+		<div class="mainContent padding-div">
+		<div class="error-div">
+		<div class="title"><h:outputText value="#{messages['msg.common.fatal']}" /></div>
+		<h:messages id="errorMessage" styleClass="message" />
+		<h1 class="next"><h:outputText value="#{messages['msg.common.next']}" /></h1>
+		<div class="goto"><a onclick="window.history.back(-1);"><h:outputText value="#{messages['msg.common.gotoPrevious']}" /></a></div>
+		<div class="goto"><a href="${request.contextPath}/home.jsf"><h:outputText value="#{messages['msg.common.gotoHome']}" /></a></div>
+
+		</div>
+		</div>
+		</div>
+	</h:form>
+	</body>
+	</html>
+</f:view>

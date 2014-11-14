@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a4j="http://richfaces.org/a4j" xmlns:mf="http://www.mtr.com.hk/jsf" contentType="text/html">
+	<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><h:outputText value="#{messages['msg.common.title']}" /></title>
+	<a4j:loadStyle src="resource:///style/theme.xcss" />
+	<a4j:loadStyle src="/style/menu.css" />
+	<a4j:loadStyle src="/style/master.css" />
+	<a4j:loadScript src="/script/jquery-1.4.2.js" />
+	<a4j:loadScript src="/script/jquery.ext.js" />
+	<a4j:loadScript src="/script/common.js" />
+	<a4j:loadScript src="/script/menu.js" />
+	<a4j:loadScript src="/script/dateUtil.js" />
+	</head>
+	<body>
+	<ui:include src="decorate.xhtml" />
+	<ui:insert name="before" />
+	<script language="javascript">
+	//<![CDATA[
+		     	
+		jQuery(document).ready( function() {
+			PCIS.Layout.onReady();
+			PCIS.Menu.onReady();			
+			PCIS.DateUtil.onReady('#{systemUser.datePattern}');
+
+			jQuery(document).bind("keydown", function(evt) {
+				alt = evt.altKey;
+				if (evt.which==83 && alt){
+					jQuery(".saveButton").click();
+				}
+			});	
+			
+			if (jQuery.browser.msie && jQuery.browser.version<7){
+				document.execCommand("BackgroundImageCache", false, true);
+			}
+		});
+	//]]>
+	</script>
+	<div id="container">
+	<div id="header"><h:form>
+		<ui:include src="/common/header.xhtml" />
+	</h:form></div>
+	<table cellpadding="0" cellspacing="0" id="mainContent">
+		<tr>
+			<td id="menuContainer" valign="top">
+			<div><h:form>
+				<div class="menuHeader">
+				<div id="menuImage" class="menuImage" />
+				</div>
+				<h:outputText value="#{systemUser.menu}" escape="false" rendered="#{not empty systemUser.userId}" />
+				<div class="space" />
+			</h:form></div>
+			</td>
+			<td id="sidebar" valign="top"><h:form>
+				<div class="menuImage" />
+				<div class="space" />
+			</h:form></td>
+			<td id="splitLine" class="splitLine">
+			<div class="space" />
+			</td>
+			<td id="content" valign="top">
+			<div>
+			<div id="bodyDiv"><ui:insert name="tabbar" /><mf:messages />
+			<div class="padding-div"><h:form>
+				<ui:insert name="body" />
+			</h:form><ui:insert name="body2" /></div>
+			</div>
+			</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+	<h:form>
+		<!-- AJAX Request Progress Status -->
+		<a4j:status id="sProgress" onstart="PCIS.Progress.show()" onstop="PCIS.Progress.hide()" />
+		<div id="progressDiv"><h:outputText value="#{messages['msg.common.progress']}" /></div>
+		<a4j:jsFunction ajaxSingle="true" actionListener="#{systemUser.hideLeftMenu}" immediate="true" name="hideLeftMenu" />
+		<a4j:jsFunction ajaxSingle="true" actionListener="#{systemUser.showLeftMenu}" immediate="true" name="showLeftMenu" />
+	</h:form>
+	<ui:insert name="after" />
+	<script language="javascript">
+	//<![CDATA[		
+
+		if (#{systemUser.hideMenu}){
+			jQuery("#menuContainer").hide();
+			jQuery("#sidebar").show();
+			jQuery("#splitLine").hide();
+		}
+		else{
+			jQuery("#menuContainer").show();
+			jQuery("#sidebar").hide();
+			jQuery("#splitLine").show();
+		}
+	
+	//]]>
+	</script>
+	</body>
+	</html>
+</f:view>

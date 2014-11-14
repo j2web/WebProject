@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ui:component xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" xmlns:h="http://java.sun.com/jsf/html">
+	<c:if test="${empty rendered}">
+		<c:set value="${true}" var="rendered" />
+	</c:if>
+	<c:choose>
+		<c:when test="${empty active}">
+			<c:set value="${request.contextPath}${request.servletPath}" var="curUrl" />
+			<c:set value="${url == curUrl}" var="isActive" />
+		</c:when>
+		<c:otherwise>
+			<c:set value="${active}" var="isActive" />
+		</c:otherwise>
+	</c:choose>
+
+	<c:if test="${rendered}">
+		<td class="${isActive ? 'on' : ''}"><a class="x-tabs-right" href="${isActive ? '#' : url}"> <span class="x-tabs-left"> <em class="x-tabs-inner"> <span class="x-tabs-text">
+		<h:outputText value="#{label}" /> </span> </em> </span> </a></td>
+	</c:if>
+</ui:component>

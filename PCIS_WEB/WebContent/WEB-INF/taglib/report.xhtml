@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:component xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib" xmlns:f="http://java.sun.com/jsf/core" xmlns:mf="http://www.mtr.com.hk/functions">
+	
+	<c:if test="#{empty facesMessages.currentGlobalMessages and mf:isPostback() and sessionScope[constant.REPORT_FLAG]}">
+		<script language="JavaScript" type="text/javascript">
+		//<![CDATA[
+		var url = "${request.contextPath}/Report?reportSessionId="
+				+ Math.random()+"&reportId=${reportId}&userId=#{systemUser.userId}&datePattern=#{systemUser.datePattern}";
+				
+			window.open(url);
+		//]]>		
+		</script>
+	</c:if>
+</ui:component>

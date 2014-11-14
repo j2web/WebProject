@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages xsd/pages-2.2.xsd"
+	no-conversation-view-id="/home.xhtml" http-port="9080" https-port="9443">
+	<page view-id="*" scheme="http">
+		<navigation>
+			<rule if-outcome="home">
+				<redirect view-id="/home.xhtml" />
+			</rule>
+			<rule if-outcome="logout">
+				<redirect view-id="/login.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+
+	<page view-id="/login.xhtml" scheme="https" />
+	<exception class="org.jboss.seam.security.AuthorizationException">
+		<redirect view-id="/error.xhtml">
+			<message severity="error">#{messages['msg.common.AuthorizationException']}</message>
+		</redirect>
+	</exception>
+
+	<exception class="javax.faces.application.ViewExpiredException">
+		<redirect view-id="/login.xhtml">
+			<message severity="warn">#{messages['msg.common.ViewExpiredException']}</message>
+		</redirect>
+	</exception>
+
+	<exception class="org.jboss.seam.ConcurrentRequestTimeoutException"
+		log-level="trace">
+			<http-error error-code="503" />
+	</exception>
+	<exception class="org.jboss.seam.security.NotLoggedInException">
+		<redirect view-id="/login.xhtml">
+			<message severity="warn">#{messages['msg.common.NotLoggedInException']}</message>
+		</redirect>
+	</exception>
+	<exception>
+		<redirect view-id="/error.xhtml">
+			<message severity="error">#{messages['msg.common.error']}</message>
+		</redirect>
+	</exception>
+
+</pages>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appdeployment:Deployment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:appdeployment="http://www.ibm.com/websphere/appserver/schemas/5.0/appdeployment.xmi" xmi:id="Deployment_1264665285493">
+  <deployedObject xmi:type="appdeployment:ApplicationDeployment" xmi:id="ApplicationDeployment_1264665285493" startingWeight="10">
+    <modules xmi:type="appdeployment:WebModuleDeployment" xmi:id="WebModuleDeployment_1264665285493" startingWeight="10000" uri="PCIS_WEB.war"/>
+    <modules xmi:type="appdeployment:EJBModuleDeployment" xmi:id="EJBModuleDeployment_1264665285493" startingWeight="5000" uri="PCIS_FACADE.jar"/>
+    <modules xmi:type="appdeployment:EJBModuleDeployment" xmi:id="EJBModuleDeployment_1264665285494" startingWeight="5000" uri="PCIS_DAO.jar"/>
+    <classloader xmi:id="Classloader_1264665285493" mode="PARENT_LAST"/>
+  </deployedObject>
+</appdeployment:Deployment>

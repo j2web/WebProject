@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+	<application>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		<message-bundle>messages-jsf</message-bundle>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
+			<supported-locale>zh_CN</supported-locale>
+		</locale-config>
+	</application>
+	<lifecycle>
+		<phase-listener>
+			hk.com.mtr.pcis.web.faces.listener.ValidationPhaseListener</phase-listener>
+	</lifecycle>
+
+	<render-kit>
+		<renderer>
+			<component-family>org.richfaces.Datascroller</component-family>
+			<renderer-type>org.richfaces.DataScrollerRenderer</renderer-type>
+			<renderer-class>hk.com.mtr.pcis.web.faces.renderkit.DataScrollerRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+
+	<validator>
+        <validator-id>HKIDValidator</validator-id>   
+        <validator-class>hk.com.mtr.pcis.web.faces.validator.HKIDValidator</validator-class>   
+    </validator>
+    <converter>
+    	<converter-id>mtr.convert.upperCaseConverter</converter-id>
+    	<converter-class>hk.com.mtr.pcis.web.faces.convert.UpperCaseConverter</converter-class>
+    </converter>
+    <converter>    	
+    	<converter-id>mtr.convert.dateConverter</converter-id>
+    	<converter-class>hk.com.mtr.pcis.web.faces.convert.DateConverter</converter-class>
+    </converter>
+    
+</faces-config>

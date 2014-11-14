@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<c:set value="${page}" var="page" />	
+	
+	<rich:datascroller maxPages="10" align="left" fastControls="hide" page="#{page}" renderIfSinglePage="false">
+		<f:facet name="first">
+			<s:div styleClass="first" />
+		</f:facet>
+		<f:facet name="first_disabled">
+			<s:div styleClass="first_disabled" />
+		</f:facet>
+		<f:facet name="last">
+			<s:div styleClass="last" />
+		</f:facet>
+		<f:facet name="last_disabled">
+			<s:div styleClass="last_disabled" />
+		</f:facet>
+		<f:facet name="previous">
+			<s:div styleClass="previous" />
+		</f:facet>
+		<f:facet name="previous_disabled">
+			<s:div styleClass="previous_disabled" />
+		</f:facet>
+		<f:facet name="next">
+			<s:div styleClass="next" />
+		</f:facet>
+		<f:facet name="next_disabled">
+			<s:div styleClass="next_disabled" />
+		</f:facet>
+	</rich:datascroller>
+</ui:composition>

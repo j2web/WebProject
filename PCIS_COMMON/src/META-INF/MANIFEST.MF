@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Class-Path: commons-logging.jar 
+ log4j-1.2.11.jar 
+ commons-beanutils.jar 
+ commons-digester.jar 
+ jsf-facelets.jar 
+ MetafileRenderer.jar 
+ SL_plugins.jar 
+ URIUtil.jar 
+ biplugins.jar 
+ cecore.jar 
+ celib.jar 
+ ceplugins_client.jar 
+ ceplugins_core.jar 
+ ceplugins_cr.jar 
+ cereports.jar 
+ cesession.jar 
+ corbaidl.jar 
+ ebus405.jar 
+ pluginhelper.jar 
+ rasapp.jar 
+ rascore.jar 
+ serialization.jar 
+ webreporting.jar 
+ xercesMinimal.jar 
+ biarengine.jar
+

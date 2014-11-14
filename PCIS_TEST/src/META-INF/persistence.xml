@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="openjpa.ConnectionDriverName" value="oracle.jdbc.OracleDriver" />
+			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@10.199.130.210:1521:storange" />
+			<property name="openjpa.ConnectionUserName" value="pcisusr" />
+			<property name="openjpa.ConnectionPassword" value="pcisusr" />
+			<property name="openjpa.Log" value="log4j" />
+			<property name="openjpa.Log" value="SQL=跟踪" />
+			<property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=72" />
+			<property name="openjpa.DetachState" value="fetch-groups" />
+			<!-- 不使用加载时强化和编译时强化，使用运行时Unenhanced 
+			<property name="openjpa.ClassLoadEnhancement" value="false" />  
+			<property name="openjpa.DynamicEnhancementAgent" value="false" />  
+			<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />  
+			-->
+		</properties>
+	</persistence-unit>
+</persistence>

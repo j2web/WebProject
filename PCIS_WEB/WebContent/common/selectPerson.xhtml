@@ -1,0 +1,166 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:mv="http://www.mtr.com.hk/jsf/validator" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:mf="http://www.mtr.com.hk/jsf">
+	<rich:modalPanel id="mpSelectPerson" width="600" height="580" style="z-index:990;">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson']}" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<img src="${request.contextPath}/style/images/close.png" style="cursor: pointer" onclick="#{rich:component('mpSelectPerson')}.hide()" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<table style="width: 100%;" class="name,value">
+				<tr>
+					<td width="20%"><h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson.idNo']}" /></td>
+					<td width="30%"><h:inputText styleClass="input width-style-100" style="text-transform: uppercase" value="#{selectPersonAction.selectPersonCriteriaVO.idNo}"  converter="mtr.convert.upperCaseConverter" /></td>
+					<td width="20%"><h:outputLabel value="#{messages['label.mf.renewalApplicant.selectPerson.name']}" /></td>
+					<td width="30%"><h:inputText styleClass="input width-style-100" style="text-transform: uppercase" value="#{selectPersonAction.selectPersonCriteriaVO.fullName}" converter="mtr.convert.upperCaseConverter" /></td>
+				</tr>
+				<tr>
+					<td><h:outputText value="#{messages['label.mf.newApplicant.telephoneMobile']}" /></td>
+					<td><h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.telephoneMobile}" /></td>
+					<td><h:outputText value="#{messages['label.mf.newApplicant.telephoneHome']}" /></td>
+					<td><h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.telephoneHome}" /></td>
+				</tr>
+				<tr>
+					<td><h:outputText value="#{messages['label.mf.newApplicant.telephoneOffice']}" /></td>
+					<td><h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.telephoneOffice}" /></td>
+					<td><h:outputText value="#{messages['label.mf.newApplicant.Co/SchoolCode']}" /></td>
+					<td><h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.companyCode}" /></td>
+				</tr>
+				<tr>
+					<td><h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson.dob']}" /></td>
+					<td><s:decorate id="sDateOfBirth">
+						<rich:calendar value="#{selectPersonAction.selectPersonCriteriaVO.dateOfBirth}" inputClass="input width-style-80" enableManualInput="true"
+							datePattern="#{systemUser.datePattern}">
+							<a4j:support event="oninputchange" ajaxSingle="true" reRender="sDateOfBirth" />
+							<a4j:support event="onchanged" ajaxSingle="true" reRender="sDateOfBirth" />							
+						</rich:calendar>
+						<script language="javascript">
+						//<![CDATA[
+							   PCIS.DateUtil.bindAutoCompleterConverter();
+						//]]>
+						</script>
+					</s:decorate></td>
+					<td><h:outputText value="#{messages['label.mf.newApplicant.cardNo']}" /></td>
+					<td><s:decorate id="sCardNo">
+						<h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.cardNo}">
+							<a4j:support event="onchange" ajaxSingle="true" reRender="sCardNo" />
+							<mv:numberValidator precision="9" scale="0" allowNegative="false" />
+							<s:validate />
+						</h:inputText>
+					</s:decorate></td>
+				</tr>
+				<tr>
+					<td><h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson.staffNo']}" /></td>
+					<td><h:inputText styleClass="input width-style-100" style="text-transform: uppercase" value="#{selectPersonAction.selectPersonCriteriaVO.schoolClass}" converter="mtr.convert.upperCaseConverter" /></td>
+					<td><h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson.receiptNo']}" /></td>
+					<td><s:decorate id="sReceiptNo">
+						<h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.receiptNo}">
+							<a4j:support event="onchange" ajaxSingle="true" reRender="sReceiptNo" />
+							<mv:numberValidator precision="10" scale="0" allowNegative="false" />
+							<s:validate />
+						</h:inputText>
+					</s:decorate></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel value="#{messages['label.mf.renewalApplicant.selectPerson.appFormNo']}" /></td>
+					<td><s:decorate id="sApplicationNo">
+						<h:inputText styleClass="input width-style-100" style="text-transform: uppercase" value="#{selectPersonAction.selectPersonCriteriaVO.applicationNo}" converter="mtr.convert.upperCaseConverter" />
+					</s:decorate></td>
+					<td><h:outputLabel value="#{messages['label.mf.renewalApplicant.selectPerson.serialNo']}" /></td>
+					<td><s:decorate id="sSerialNo">
+						<h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.serialNo}">
+							<a4j:support event="onchange" ajaxSingle="true" reRender="sSerialNo" />
+							<mv:numberValidator precision="10" scale="0" allowNegative="false" />
+							<s:validate />
+						</h:inputText>
+					</s:decorate></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel value="#{messages['label.mf.newApplicant.refundDocumentNo']}" /></td>
+					<td><h:inputText styleClass="input width-style-100" value="#{selectPersonAction.selectPersonCriteriaVO.refundDocNo}"/></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="4" style="text-align: right;"><a4j:commandButton styleClass="searchButton" actionListener="#{selectPersonAction.doSearch}"
+						value="#{messages['button.common.search']}" reRender="inputConditionAdvice,opPersonList" /></td>
+				</tr>
+			</table>
+			<h:panelGroup id="inputConditionAdvice">
+				<s:div styleClass="warn-div" rendered="#{selectPersonAction.inputCriteria}">
+					#{messages['msg.common.inputCondition']}
+				</s:div>
+			</h:panelGroup>
+			<a4j:outputPanel id="opPersonList">
+				<h:panelGroup rendered="#{!selectPersonAction.inputCriteria}">
+					<mf:recordNotFound actionListener="#{selectPersonAction}" />
+					<h:panelGroup rendered="#{selectPersonAction.search and selectPersonAction.pageDataModel.rowCount &gt; 0}">
+						<rich:dataTable id="dtPersonList" columnClasses="text,text,text,text,text,text" rows="#{selectPersonAction.pageSize}" value="#{selectPersonAction.pageDataModel}"
+							var="vo" onRowMouseOut="PCIS.Layout.table.onRowMouseOut(this)" onRowMouseOver="PCIS.Layout.table.onRowMouseOver(this)"
+							onRowClick="document.getElementById('#{rich:clientId('selectPersonButton')}').click();#{rich:component('mpSelectPerson')}.hide();this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}';">
+							<rich:column styleClass="width-style-100" headerClass="text-align-left">
+								<f:facet name="header">
+									<h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson.idNo']}" />
+								</f:facet>
+								<h:outputText value="#{vo.idNo}" />
+							</rich:column>
+							<rich:column styleClass="width-style-100" headerClass="text-align-left">
+								<f:facet name="header">
+									<h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson.name']}" />
+								</f:facet>
+								<h:outputText value="#{vo.fullName}" />
+							</rich:column>
+							<rich:column styleClass="width-style-50" headerClass="text-align-left">
+								<f:facet name="header">
+									<h:outputText value="#{messages['label.mf.newApplicant.sex']}" />
+								</f:facet>
+								<h:outputText value="#{vo.sex}" />
+							</rich:column>
+							<rich:column styleClass="width-style-100" headerClass="text-align-left">
+								<f:facet name="header">
+									<h:outputText value="#{messages['label.mf.renewalApplicant.selectPerson.dob']}" />
+								</f:facet>
+								<h:outputText value="#{vo.dateOfBirth}">
+									<s:convertDateTime pattern="#{systemUser.datePattern}" />
+								</h:outputText>
+							</rich:column>
+							<rich:column styleClass="width-style-100" headerClass="text-align-left">
+								<f:facet name="header">
+									<h:outputText value="#{messages['label.mf.newApplicant.telephoneMobile']}" />
+								</f:facet>
+								<h:outputText value="#{vo.telephoneMobile}" />
+							</rich:column>
+							<rich:column styleClass="width-style-100" headerClass="text-align-left">
+								<f:facet name="header">
+									<h:outputText value="#{messages['label.mf.newApplicant.telephoneHome']}" />
+								</f:facet>
+								<h:outputText value="#{vo.telephoneHome}" />
+								<a4j:commandButton actionListener="#{selectPersonAction.selectPerson}" style="display:none" id="selectPersonButton" reRender="#{reRender},opPersonList">
+									<f:param name="#{constant['PARAMETER_KEY']}" value="${key}" />
+								</a4j:commandButton>
+							</rich:column>
+							<f:facet name="footer">
+								<mf:datascroller page="#{selectPersonAction.currentPageIndex}" />
+							</f:facet>
+						</rich:dataTable>
+					</h:panelGroup>
+				</h:panelGroup>
+			</a4j:outputPanel>
+		</h:form>
+		<script language="javascript">
+				//<![CDATA[
+					   //parent.PCIS.DateUtil.onReady('#{systemUser.datePattern}');
+					   PCIS.DateUtil.bindAutoCompleterConverter();
+				//]]>
+				</script>
+	</rich:modalPanel>
+</ui:composition>

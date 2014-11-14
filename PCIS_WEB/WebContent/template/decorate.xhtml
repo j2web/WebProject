@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jstl/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a4j="http://richfaces.org/a4j" xmlns:mf="http://www.mtr.com.hk/functions"
+	xmlns:rich="http://richfaces.org/rich">
+	<f:facet name="aroundInvalidField">
+		<s:div styleClass="error-container" />
+	</f:facet>
+	<f:facet name="afterInvalidField">
+		<h:panelGroup>
+			<img style="width: 1px; height: 1px; display: none" src="${request.contextPath}/style/images/s.gif?#{mf:uuid()}" onload="PCIS.Validation.bind(this)" />
+			<div class="errMsgBox">
+			<div class="error-bg"><span class="errMsgBox-body"><s:message /></span></div>
+			</div>
+		</h:panelGroup>
+	</f:facet>
+</ui:composition>

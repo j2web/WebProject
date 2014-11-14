@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#sa#user#searchUser.xhtml"
+  PATH="/sa/user/searchUser.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sa#user#searchUser.xhtml:0" NAME="item"
+   PATH="/sa/user/searchUser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="searchUser::#sa#user#listUser.xhtml"
+    NAME="output" PATH="/sa/user/listUser.xhtml"
+    TARGET="rules:#sa#user#listUser.xhtml" TITLE="searchUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sa#role#searchRole.xhtml"
+  PATH="/sa/role/searchRole.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sa#role#searchRole.xhtml:0" NAME="item"
+   PATH="/sa/role/searchRole.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="searchRole::#sa#role#listRole.xhtml"
+    NAME="output" PATH="/sa/role/listRole.xhtml"
+    TARGET="rules:#sa#role#listRole.xhtml" TITLE="searchRole" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sa#role#listRole.xhtml"
+  PATH="/sa/role/listRole.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sa#user#listUser.xhtml"
+  PATH="/sa/user/listUser.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

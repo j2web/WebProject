@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mtr.com.hk report.cfg.xsd" xmlns="http://www.mtr.com.hk">
+	<server>
+		<property name="report.odbc.username">pcisusr</property>
+		<property name="report.odbc.password">C:/pcis_report_config/encrypt_pcis.txt</property>
+		<property name="report.odbc.dsn">pcisds</property>
+		<property name="report.odbc.dbname">storage</property>
+		<property name="report.server.changeTableLocation">N</property>
+		<property name="report.cms.username">pcis</property>
+		<property name="report.cms.password">C:/pcis_report_config/encrypt_crs.txt</property>
+		<property name="report.cms.cmsName">apj052</property>
+		<property name="report.cms.authenticationType">secEnterprise</property>
+		<property name="report.cms.folder">PCIS</property>
+		<property name="report.cms.coucurrent">50</property>
+	</server>
+	<reports>
+		<report id="PCI3001">
+			<property name="reportFileName">PCI3001.rpt</property>
+			<property name="outputFileName">CompanyListReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		<report id="PCI3002">
+			<property name="reportFileName">PCI3002.rpt</property>
+			<property name="outputFileName">CardHistoryReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		<report id="PCI3005">
+			<property name="reportFileName">PCI3005.rpt</property>
+			<property name="outputFileName">DispatchSheetReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		<report id="PCI3006">
+			<property name="reportFileName">PCI3006.rpt</property>
+			<property name="outputFileName">NewCardApplicationReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		<report id="PCI3007">
+			<property name="reportFileName">PCI3007.rpt</property>
+			<property name="outputFileName">RenewalCardReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+
+		<report id="PCI3008">
+			<property name="reportFileName">PCI3008.rpt</property>
+			<property name="outputFileName">CardStatisticReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+
+		<report id="PCI4001">
+			<property name="reportFileName">PCI4001.rpt</property>
+			<property name="outputFileName">ResignedAirportStaffReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		
+		<report id="PCI5002">
+			<property name="reportFileName">PCI5002.rpt</property>
+			<property name="outputFileName">RailCardApplicationReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		<report id="PCI1305">
+			<property name="reportFileName">PCI1305.rpt</property>
+			<property name="outputFileName">OnlineAppMailingListReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		<report id="PCI1306">
+			<property name="reportFileName">PCI1306.rpt</property>
+			<property name="outputFileName">OnlineApplicationOutstandingReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		<report id="PCI1307">
+			<property name="reportFileName">PCI1307.rpt</property>
+			<property name="outputFileName">OnlinePaymentReconciliationReport</property>
+			<property name="outputDirectory">C:/pcis_report/</property>
+		</report>
+		
+	</reports>
+</report-configuration>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.mtr.com.hk" xmlns="http://www.mtr.com.hk"
+	elementFormDefault="qualified">
+	<xsd:element name="property">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="name" use="required">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="report.odbc.username" />
+								<xsd:enumeration value="report.odbc.password" />
+								<xsd:enumeration value="report.odbc.dsn" />
+								<xsd:enumeration value="report.odbc.dbname" />
+								<xsd:enumeration value="report.server.changeTableLocation" />
+								<xsd:enumeration value="report.cms.username" />
+								<xsd:enumeration value="report.cms.password" />
+								<xsd:enumeration value="report.cms.cmsName" />
+								<xsd:enumeration value="report.cms.authenticationType" />
+								<xsd:enumeration value="report.cms.folder" />
+								<xsd:enumeration value="report.cms.coucurrent" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="report">
+		<xsd:complexType>
+			<xsd:sequence maxOccurs="3">
+				<xsd:element name="property">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="name" use="required">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="reportFileName" />
+											<xsd:enumeration value="outputFileName" />
+											<xsd:enumeration value="outputDirectory" />
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="report-configuration">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="server">
+					<xsd:complexType>
+						<xsd:sequence maxOccurs="12">
+							<xsd:element ref="property" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="reports">
+					<xsd:complexType>
+						<xsd:sequence maxOccurs="unbounded">
+							<xsd:element ref="report" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

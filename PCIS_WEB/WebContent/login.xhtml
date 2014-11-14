@@ -1,0 +1,89 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib" xmlns:c="http://java.sun.com/jstl/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:mf="http://www.mtr.com.hk/jsf"
+	contentType="text/html">
+	<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><h:outputText value="#{messages['msg.common.title']}" /></title>
+	<a4j:loadStyle src="resource:///style/theme.xcss" />
+	<a4j:loadStyle src="/style/master.css" />
+	<a4j:loadScript src="/script/jquery-1.4.2.js" />
+	<a4j:loadScript src="/script/jquery.ext.js" />
+	<a4j:loadScript src="/script/common.js" />
+	<style>
+body {
+	background-color: #FFFFFF;
+}
+</style>
+	</head>
+	<body>
+	<table width="1024" border="0" cellpadding="0" cellspacing="0" align="center">
+		<tr align="left">
+			<td><img src="${request.contextPath}/style/images/mtr_icon.gif" /></td>
+		</tr>
+		<tr>
+			<td><mf:messages /></td>
+		</tr>
+	</table>
+	<ui:include src="template/decorate.xhtml" />
+	<table width="1024" border="0" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+			<td rowspan="3" style="background-image: url(${request.contextPath}/style/images/login_01.gif); width: 492px; height: 425px;"></td>
+			<td style="background-image: url(${request.contextPath}/style/images/login_02.gif); width: 286px; height: 166px;"></td>
+			<td rowspan="3" style="background-image: url(${request.contextPath}/style/images/login_03.gif); width: 246px; height: 425px;"></td>
+		</tr>
+		<tr>
+			<td style="background-image: url(${request.contextPath}/style/images/login_04.gif); width: 286px; height: 166px;"><h:form id="mainForm">
+				<input type="hidden" name="j_username" value="#{loginAction.userId}" />
+				<input type="hidden" name="j_password" value="#{loginAction.password}" />
+				<table cellpadding="0" cellspacing="0" width="100%">
+					<tr>
+						<td style="padding-left: 35px"><s:validateAll>
+							<h:panelGrid columns="2" columnClasses="name,value" width="100%">
+								<h:outputLabel value="#{messages['label.login.language']}" />&nbsp;<h:selectOneMenu value="#{localeSelector.localeString}" immediate="true" valueChangeListener="#{systemUser.changeLocale}"
+									onchange="document.forms[0].submit();">
+									<f:selectItems value="#{localeSelector.supportedLocales}" />
+								</h:selectOneMenu>
+								<h:outputLabel value="#{messages['label.login.userId']}" />&nbsp;
+											<s:decorate>
+									<h:inputText id="userId" required="true" value="#{loginAction.userId}" styleClass="input" style="text-transform: uppercase;width:120px;" label="#{messages['label.login.userId']}" />
+								</s:decorate>
+								<h:outputLabel value="#{messages['label.login.password']}" />&nbsp;
+											<s:decorate>
+									<h:inputSecret autocomplete="off"  id="password" required="true" value="#{loginAction.password}" styleClass="input" style="width:120px;" label="#{messages['label.login.password']}" />
+								</s:decorate>
+							</h:panelGrid>
+						</s:validateAll></td>
+					</tr>
+					<tr>
+						<td align="center"><h:commandButton actionListener="#{loginAction.doLogin}" value="#{messages['button.login.signin']}" styleClass="loginButton" /> <h:commandButton immediate="true"
+							actionListener="#{loginAction.showError}" id="btnShowError" style="display:none" /></td>
+					</tr>
+				</table>
+			</h:form></td>
+		</tr>
+		<tr>
+			<td style="background-image: url(${request.contextPath}/style/images/login_05.gif); width: 286px; height: 93px;"></td>
+		</tr>
+	</table>
+	<div id="messageDiv">
+	<table width="1024" border="0" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+			<td><h:outputLabel value="#{loginAction.loginMessage}" escape="false" rendered="#{not empty loginAction.loginMessage}" /></td>
+		</tr>
+	</table>
+	</div>
+	<script language="JavaScript" type="text/javascript">		
+			<c:if test="#{loginAction.showErrorFlag}">			
+				document.getElementById("mainForm:btnShowError").click();	
+			</c:if>
+			<c:if test="#{loginAction.loginFlag}">		
+				document.forms[0].action="j_security_check";	
+				document.forms[0].submit();	
+			</c:if>
+		</script>
+	</body>
+	</html>
+</f:view>

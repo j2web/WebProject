@@ -1,0 +1,40 @@
+<ui:composition xmlns:c="http://java.sun.com/jstl/core" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:mf="http://www.mtr.com.hk/jsf"
+	template="/template/main-content.xhtml">
+	<!-- the tab menu -->
+	<ui:define name="tabbar">
+		<mf:tabbar>
+			<mf:privilege functionId="#{constant['Role.ADD_ROLE']}">
+				<mf:tabItem active="false" label="#{messages['label.sa.roleMaint.userRole']}" url="${request.contextPath}/sa/role/addRole.jsf" />
+			</mf:privilege>
+			<mf:tabItem active="true" label="#{messages['label.common.search']}" url="${request.contextPath}/sa/role/searchRole.jsf" />
+			<mf:tabItem active="false" label="#{messages['label.common.searchResult']}" url="${request.contextPath}/sa/role/listRole.jsf" />
+		</mf:tabbar>
+	</ui:define>
+	<!-- the main content -->
+	<ui:define name="body">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.sa.roleMaint.searchRole']}" />
+			</f:facet>
+			<table>
+				<tr>
+					<td><h:panelGrid columns="2" columnClasses="name,value">
+						<h:outputLabel value="#{messages['label.sa.roleMaint.roleId']}" />
+						<h:inputText id="roleId" required="false" value="#{searchRoleAction.roleCriteriaVO.roleId}" styleClass="input" />
+						<h:outputLabel value="#{messages['label.sa.roleMaint.roleName']}" />
+						<h:inputText id="roleName" required="false" value="#{searchRoleAction.roleCriteriaVO.roleName}" styleClass="input" />
+					</h:panelGrid></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td nowrap="nowrap"><h:commandButton action="#{searchRoleAction.doSearch}" value="#{messages['button.common.search']}" styleClass="searchButton" /> <h:commandButton
+						actionListener="#{searchRoleAction.doReset}" value="#{messages['button.common.reset']} " styleClass="resetButton" /> <mf:privilege functionId="#{constant['Role.ADD_ROLE']}">
+						<input type="button" value="#{messages['button.common.new']}" class="newButton" onclick="return PCIS.Util.navigate('${request.contextPath}/sa/role/addRole.jsf')" />
+					</mf:privilege></td>
+				</tr>
+			</table>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

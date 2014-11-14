@@ -1,0 +1,56 @@
+<ui:composition xmlns:c="http://java.sun.com/jstl/core" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:mf="http://www.mtr.com.hk/jsf"
+	xmlns:mfn="http://www.mtr.com.hk/functions" template="/template/main-content.xhtml">
+	<!-- the tab menu -->
+	<ui:define name="tabbar">
+		<c:set value="${mfn:hasPrivilege(constant['Role.ADD_ROLE'])}" var="addRolePrivilege" />
+		<c:set value="${mfn:hasPrivilege(constant['Role.UPDATE_ROLE'])}" var="updateRolePrivilege" />
+		<mf:tabbar>
+			<mf:tabItem active="false" rendered="${addRolePrivilege}" label="#{messages['label.sa.roleMaint.userRole']}" url="${request.contextPath}/sa/role/addRole.jsf" />
+			<mf:tabItem active="false" label="#{messages['label.common.search']}" url="${request.contextPath}/sa/role/searchRole.jsf" />
+			<mf:tabItem active="true" label="#{messages['label.common.searchResult']}" url="${request.contextPath}/sa/role/listRole.jsf" />
+		</mf:tabbar>
+	</ui:define>
+	<!-- the main content -->
+	<ui:define name="body">
+		<mf:recordNotFound actionListener="#{listRoleAction}" />
+		<table>
+			<mf:privilege functionId="#{constant['Role.ADD_ROLE']}">
+				<tr>
+					<td />
+					<td><input type="button" value="#{messages['button.common.new']}" class="newButton" onclick="return PCIS.Util.navigate('${request.contextPath}/sa/role/addRole.jsf')" /></td>
+				</tr>
+			</mf:privilege>
+			<tr>
+				<td><c:if test="${listRoleAction.pageDataModel.rowCount>0}">
+					<rich:dataTable id="roleList" columnClasses="text,text,text" rows="#{listRoleAction.pageSize}" value="#{listRoleAction.pageDataModel}" var="vo">
+						<mf:sortableColumn actionListener="#{listRoleAction}" widthStyleClass="width-style-150" styleClass="text-align-left" label="#{messages['label.sa.roleMaint.roleId']}" reRender="roleList"
+							sortExpression="roleId">
+							<c:if test="${updateRolePrivilege}">
+								<h:outputLink value="${request.contextPath}/sa/role/editRole.jsf?roleId=${mfn:encodeURL(vo.roleId)}">
+									<h:outputText value="#{vo.roleId}" />
+								</h:outputLink>
+							</c:if>
+							<c:if test="${not updateRolePrivilege}">
+								<h:outputText value="#{vo.roleId}" />
+							</c:if>
+						</mf:sortableColumn>
+						<mf:sortableColumn actionListener="#{listRoleAction}" widthStyleClass="width-style-200" styleClass="text-align-left" label="#{messages['label.sa.roleMaint.roleName']}" reRender="roleList"
+							sortExpression="roleName">
+							<h:outputText value="#{vo.roleName}" />
+						</mf:sortableColumn>
+						<mf:sortableColumn actionListener="#{listRoleAction}" widthStyleClass="width-style-200" styleClass="text-align-left" label="#{messages['label.sa.roleMaint.roleDesc']}" reRender="roleList"
+							sortExpression="roleDesc">
+							<h:outputText value="#{vo.roleDesc}" />
+						</mf:sortableColumn>
+						<mf:actionColumn actionListener="#{listRoleAction}" deletePrivilegeId="#{constant['Role.DELETE_ROLE']}" vo="#{vo}" />
+						<f:facet name="footer">							
+							<mf:datascroller page="#{listRoleAction.currentPageIndex}" />
+						</f:facet>
+					</rich:dataTable>
+				</c:if></td>
+				<td />
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,69 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:mf="http://www.mtr.com.hk/jsf">
+	<rich:modalPanel id="mpSelectUser" width="600" height="500">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="#{messages['label.sa.roleMaint.selectUser']}" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<img src="${request.contextPath}/style/images/close.png" style="cursor: pointer" onclick="#{rich:component('mpSelectUser')}.hide()" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<script language="javascript">
+			function checkSelect(){
+				if (jQuery("input:checked").length==0){
+					alert("#{messages['msg.common.selectOneRecord']}");
+					return false;
+				}
+				else
+					return true;
+			}
+			</script>
+			<table>
+				<tr>
+					<td><h:panelGrid columns="4" columnClasses="name,colon,value">
+						<h:outputLabel value="#{messages['label.sa.userMaint.userId']}" />
+						<h:inputText value="#{selectUserAction.userCriteriaVO.userId}" styleClass="input" />
+						<h:outputLabel value="#{messages['label.sa.userMaint.userName']}" />
+						<h:inputText value="#{selectUserAction.userCriteriaVO.userName}" styleClass="input" />
+					</h:panelGrid></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td nowrap="nowrap"><a4j:commandButton styleClass="searchButton" actionListener="#{selectUserAction.doSearch}" value="#{messages['button.common.search']}" reRender="opUserList" /></td>
+				</tr>
+			</table>
+			<a4j:outputPanel id="opUserList">
+				<mf:recordNotFound actionListener="#{selectUserAction}" />
+				<h:panelGroup rendered="#{selectUserAction.search and selectUserAction.pageDataModel.rowCount &gt; 0}">
+					<rich:dataTable id="dtUserList" columnClasses="text,text,text" rows="#{selectUserAction.pageSize}" value="#{selectUserAction.pageDataModel}" var="vo">
+						<mf:selectableColumn vo="#{vo}" />
+						<rich:column styleClass="width-style-200">
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.sa.userMaint.userId']}" />
+							</f:facet>
+							<h:outputText value="#{vo.userId}" />
+						</rich:column>
+						<rich:column styleClass="width-style-300">
+							<f:facet name="header">
+								<h:outputText value="#{messages['label.sa.userMaint.userName']}" />
+							</f:facet>
+							<h:outputText value="#{vo.userName}" />
+						</rich:column>
+						<f:facet name="footer">
+							<mf:datascroller page="#{selectUserAction.currentPageIndex}" />
+						</f:facet>
+					</rich:dataTable>
+					<a4j:commandButton value="#{messages['button.common.select']}" actionListener="#{selectUserAction.doSelect}" reRender="pgRoleUser,opUserList" onmousedown="return checkSelect()"
+						oncomplete="#{rich:component('mpSelectUser')}.hide()" styleClass="selectButton" />
+				</h:panelGroup>
+			</a4j:outputPanel>
+		</h:form>
+	</rich:modalPanel>
+</ui:composition>

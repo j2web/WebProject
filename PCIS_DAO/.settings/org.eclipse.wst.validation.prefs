@@ -1,0 +1,10 @@
+#Tue Jan 26 14:26:24 CST 2010
+override=false
+USER_MANUAL_PREFERENCE=enabledManualValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;org.eclipse.wst.wsi.ui.internal.WSIMessageValidator;com.ibm.etools.webtools.sdo.jdbc.ui.validators.JDBCMediatorConnectionFileValidator;com.businessobjects.crystalreports.integration.eclipse.wtp.CrystalReportsValidator;com.ibm.ast.ws.ext.validator.WsExtValidator;org.eclipse.wst.common.componentcore.internal.ModuleCoreValidator;com.ibm.etools.j2ee.migration.classpath.J2EEClasspathValidator;
+suspend=false
+eclipse.preferences.version=1
+vf.version=3
+DELEGATES_PREFERENCE=delegateValidatorList
+USER_PREFERENCE=overrideGlobalPreferencesfalse
+vals/org.eclipse.wst.dtd.core.dtdDTDValidator/global=FF01
+USER_BUILD_PREFERENCE=enabledBuildValidatorListorg.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;org.eclipse.wst.wsi.ui.internal.WSIMessageValidator;com.ibm.etools.webtools.sdo.jdbc.ui.validators.JDBCMediatorConnectionFileValidator;com.businessobjects.crystalreports.integration.eclipse.wtp.CrystalReportsValidator;com.ibm.ast.ws.ext.validator.WsExtValidator;org.eclipse.wst.common.componentcore.internal.ModuleCoreValidator;com.ibm.etools.j2ee.migration.classpath.J2EEClasspathValidator;

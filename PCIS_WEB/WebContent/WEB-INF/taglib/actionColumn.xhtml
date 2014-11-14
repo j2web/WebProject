@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+	xmlns:mfn="http://www.mtr.com.hk/functions">
+	<c:set value="${addPrivilegeId}" var="addPrivilegeId" />
+	<c:set value="${updatePrivilegeId}" var="updatePrivilegeId" />
+	<c:set value="${deletePrivilegeId}" var="deletePrivilegeId" />
+	<c:if test="${not empty addPrivilegeId}">
+		<c:set value="${mfn:hasPrivilege(addPrivilegeId)}" var="addPrivilege" />
+	</c:if>
+	<c:if test="${not empty updatePrivilegeId}">
+		<c:set value="${mfn:hasPrivilege(updatePrivilegeId)}" var="updatePrivilege" />
+	</c:if>
+	<c:if test="${not empty deletePrivilegeId}">
+		<c:set value="${mfn:hasPrivilege(deletePrivilegeId)}" var="deletePrivilege" />
+	</c:if>
+	<c:if test="${(addPrivilege and actionListener['add']) or updatePrivilege or deletePrivilege}">
+		<rich:column headerClass="#{headerClass}">
+			<h:commandLink actionListener="#{actionListener['doEdit']}" disabled="#{!actionListener['search']}" rendered="#{vo['none'] and updatePrivilege}" title="#{messages['button.common.edit']}">
+				<h:graphicImage value="#{actionListener['search']?'/style/images/toolbar/edit.gif' : '/style/images/toolbar/edit_disable.gif'}" />
+			</h:commandLink>
+			<h:commandLink actionListener="#{actionListener['doDelete']}" disabled="#{!actionListener['search']}" rendered="#{vo['none'] and deletePrivilege}" title="#{messages['button.common.delete']}"
+				onclick="return window.confirm('#{messages['msg.common.confirmDelete']}')">
+				<h:graphicImage value="#{actionListener['search']?'/style/images/toolbar/delete.gif' : '/style/images/toolbar/delete_disable.gif'}" />
+			</h:commandLink>
+			<h:commandLink actionListener="#{actionListener['doSave']}" rendered="#{vo['add'] and addPrivilege}" title="#{messages['button.common.save']}">
+				<h:graphicImage value="/style/images/toolbar/save.gif" />
+			</h:commandLink>
+			<h:commandLink actionListener="#{actionListener['doUpdate']}" rendered="#{vo['edit'] and updatePrivilege}" title="#{messages['button.common.update']}">
+				<h:graphicImage value="/style/images/toolbar/save.gif" />
+			</h:commandLink>
+			<h:commandLink actionListener="#{actionListener['doCancel']}" rendered="#{!vo['none']}" title="#{messages['button.common.cancel']}" immediate="true">
+				<h:graphicImage value="/style/images/toolbar/cancel.gif" />
+			</h:commandLink>
+		</rich:column>
+	</c:if>
+</ui:composition>

@@ -1,0 +1,124 @@
+<ui:composition xmlns:c="http://java.sun.com/jstl/core" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:mf="http://www.mtr.com.hk/jsf"
+	xmlns:mv="http://www.mtr.com.hk/jsf/validator" template="/template/main-content.xhtml">
+	<!-- the tab menu -->
+	<ui:define name="tabbar">
+		<mf:tabbar>
+			<mf:tabItem active="true" label="#{messages['label.sa.roleMaint.userRole']}" url="${request.contextPath}/sa/role/addRole.jsf" />
+			<mf:tabItem active="false" label="#{messages['label.common.search']}" url="${request.contextPath}/sa/role/searchRole.jsf" />
+			<mf:tabItem active="false" label="#{messages['label.common.searchResult']}" url="${request.contextPath}/sa/role/listRole.jsf" />
+		</mf:tabbar>
+	</ui:define>
+	<!-- the main content -->
+	<ui:define name="body">
+		<script type="text/javascript" src="tree.js" />
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.sa.roleMaint.addRole']}" />
+			</f:facet>
+			<table>
+				<tr>
+					<td />
+					<td><h:commandButton value="#{messages['button.common.save']}" actionListener="#{addRoleAction.doSave}" styleClass="saveButton" /></td>
+				</tr>
+				<tr>
+					<td><h:panelGrid styleClass="input-div" columns="2" columnClasses="name,value">
+						<h:panelGroup>
+							<h:outputLabel value="#{messages['label.sa.roleMaint.roleId']}" />
+							<span class="required">*</span>
+						</h:panelGroup>
+						<s:decorate id="s1">
+							<h:inputText styleClass="input width-style-200" value="#{addRoleAction.roleVO.roleId}" required="true" maxlength="20">
+								<mv:maxLengthValidator />
+								<s:validate />
+							</h:inputText>
+						</s:decorate>
+						<h:panelGroup>
+							<h:outputLabel value="#{messages['label.sa.roleMaint.roleName']}" />
+							<span class="required">*</span>
+						</h:panelGroup>
+						<s:decorate id="s2">
+							<h:inputText styleClass="input width-style-200" value="#{addRoleAction.roleVO.roleName}" required="true" maxlength="30">
+								<mv:maxLengthValidator />
+								<s:validate />
+							</h:inputText>
+						</s:decorate>
+						<h:panelGroup>
+							<h:outputLabel value="#{messages['label.sa.roleMaint.roleDesc']}" />
+							<span class="required">*</span>
+						</h:panelGroup>
+						<s:decorate id="s3">
+							<h:inputText styleClass="input width-style-200" value="#{addRoleAction.roleVO.roleDesc}" required="true" maxlength="30">
+								<mv:maxLengthValidator />
+								<s:validate />
+							</h:inputText>
+						</s:decorate>
+					</h:panelGrid>
+					<div class="padding-div"><a4j:region>
+						<rich:tabPanel switchType="ajax" width="600">
+							<rich:tab label="#{messages['label.sa.roleMaint.function']}" labelWidth="60">
+								<div class="padding-div"><h:panelGroup id="pgPrivilege">
+									<rich:tree switchType="client" immediate="true" stateAdvisor="#{treeNodeAdvisor}">
+										<f:facet name="iconCollapsed">
+											<h:graphicImage value="/style/images/collapsed.gif" style="border:0;margin-left:2px;margin-top:2px" />
+										</f:facet>
+										<f:facet name="iconExpanded">
+											<h:graphicImage value="/style/images/expanded.gif" style="border:0;margin-left:2px;margin-top:2px" />
+										</f:facet>
+										<f:facet name="iconLeaf">
+											<h:graphicImage value="/style/images/leaf.gif" style="border:0;margin-left:2px;margin-top:2px" />
+										</f:facet>
+										<rich:recursiveTreeNodesAdaptor roots="#{addRoleAction.privilegeTree.privilegeRootNodes}" var="item" nodes="#{item.nodes}">
+											<rich:treeNode>
+												<h:selectBooleanCheckbox value="#{item.selected}" onclick="check(this)">
+												</h:selectBooleanCheckbox>
+												<h:outputText value="#{messages[item.name]}" />
+											</rich:treeNode>
+										</rich:recursiveTreeNodesAdaptor>
+									</rich:tree>
+								</h:panelGroup></div>
+							</rich:tab>
+							<rich:tab label="#{messages['label.sa.roleMaint.user']}" labelWidth="60">
+								<div class="padding-div"><h:panelGroup id="pgRoleUser">
+									<table>
+										<tr>
+											<td />
+											<td><input type="button" value="#{messages['label.sa.roleMaint.selectUser']}" class="addUserButton" onclick="#{rich:component('mpSelectUser')}.show()" /></td>
+										</tr>
+										<tr>
+											<td><rich:dataTable id="userList" columnClasses="text,text,text" value="#{addRoleAction.userList}" var="vo" rendered="#{not empty addRoleAction.userList}">
+												<rich:column styleClass="width-style-200">
+													<f:facet name="header">
+														<h:outputText value="#{messages['label.sa.userMaint.userId']}" />
+													</f:facet>
+													<h:outputText value="#{vo.userId}" />
+												</rich:column>
+												<rich:column styleClass="width-style-200">
+													<f:facet name="header">
+														<h:outputText value="#{messages['label.sa.userMaint.userName']}" />
+													</f:facet>
+													<h:outputText value="#{vo.userName}" />
+												</rich:column>
+												<rich:column>
+													<a4j:commandLink actionListener="#{addRoleAction.doDeleteUser}" title="#{messages['button.common.delete']}" immediate="true" reRender="pgRoleUser">
+														<img src="${request.contextPath}/style/images/toolbar/delete.gif" />
+													</a4j:commandLink>
+												</rich:column>
+											</rich:dataTable></td>
+											<td />
+										</tr>
+									</table>
+								</h:panelGroup></div>
+							</rich:tab>
+						</rich:tabPanel>
+					</a4j:region></div>
+					</td>
+					<td />
+				</tr>
+			</table>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="after">
+		<ui:include src="selectUser.xhtml" />
+	</ui:define>
+</ui:composition>

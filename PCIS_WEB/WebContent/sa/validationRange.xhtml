@@ -1,0 +1,55 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:c="http://java.sun.com/jstl/core" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:mf="http://www.mtr.com.hk/jsf"
+	xmlns:mv="http://www.mtr.com.hk/jsf/validator" template="/template/main-content.xhtml">
+	<ui:define name="body">
+		<s:validateAll>
+			<a4j:region>
+				<rich:panel>
+					<f:facet name="header">Validation long range sample</f:facet>
+					<h:panelGrid columns="2" rowClasses="prop" columnClasses="name,value">
+						<h:outputLabel for="startNo">startNo</h:outputLabel>
+						<s:decorate id="s1">
+							<h:inputText id="startNo" styleClass="input" value="#{validationAction.startNo}" required="true">
+								<mv:rangeValidator maximumId="endNo" />
+								<a4j:support event="onblur" ajaxSingle="false" reRender="s1,s2" />
+							</h:inputText>
+						</s:decorate>
+						<h:outputLabel for="endNo">endNo</h:outputLabel>
+						<s:decorate id="s2">
+							<h:inputText id="endNo" styleClass="input" value="#{validationAction.endNo}" required="true">
+								<mv:rangeValidator minimumId="startNo" />
+								<a4j:support event="onblur" ajaxSingle="false" reRender="s1,s2" />
+							</h:inputText>
+						</s:decorate>
+					</h:panelGrid>
+				</rich:panel>
+			</a4j:region>
+			<rich:spacer height="20" />
+			<a4j:region>
+				<rich:panel>
+					<f:facet name="header">Validation date range sample</f:facet>
+					<h:panelGrid columns="2" rowClasses="prop" columnClasses="name,value">
+						<h:outputLabel for="startDate">startDate</h:outputLabel>
+						<s:decorate id="s3">
+							<rich:calendar inputClass="input" id="startDate" value="#{validationAction.startDate}" required="true">
+								<mv:rangeValidator maximumId="endDate" />
+								<a4j:support event="onchanged" ajaxSingle="false" reRender="s3,s4" />
+							</rich:calendar>
+						</s:decorate>
+						<h:outputLabel for="endDate">endDate</h:outputLabel>
+						<s:decorate id="s4">
+							<rich:calendar inputClass="input" id="endDate" value="#{validationAction.endDate}" required="true">
+								<mv:rangeValidator minimumId="startDate" />
+								<a4j:support event="onchanged" ajaxSingle="false" reRender="s3,s4" />
+							</rich:calendar>
+						</s:decorate>
+					</h:panelGrid>
+				</rich:panel>
+			</a4j:region>
+			<h:commandButton value="Submit" action="#{validationAction.doSubmit}" />
+		</s:validateAll>
+	</ui:define>
+</ui:composition>
+

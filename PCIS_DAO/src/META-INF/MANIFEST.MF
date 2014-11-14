@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: PCIS_COMMON.jar 
+ commons-beanutils.jar 
+ commons-logging.jar 
+ log4j-1.2.11.jar 
+ commons-lang.jar
+
