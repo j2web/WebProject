@@ -1,0 +1,90 @@
+<ui:composition xmlns:c="http://java.sun.com/jstl/core" xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j" xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:mf="http://www.mtr.com.hk/jsf"
+	xmlns:mv="http://www.mtr.com.hk/jsf/validator" template="/template/main-content.xhtml">
+	<!-- the tab menu -->
+	<ui:define name="tabbar">
+		<mf:tabbar>
+			<mf:tabItem active="false" label="#{messages['label.common.search']}" url="${request.contextPath}/co/cardExpiryDate/searchCardExpiryDate.jsf" />
+			<mf:tabItem active="true" label="#{messages['label.common.searchResult']}" url="${request.contextPath}/co/cardExpiryDate/listCardExpiryDate.jsf" />
+		</mf:tabbar>
+	</ui:define>
+	<!-- the main content -->
+	<ui:define name="body">
+		<mf:recordNotFound actionListener="#{ListCardExpiryDateAction}" />
+		<table>
+			<mf:privilege functionId="#{constant['CardExpiryDate.ADD_CARDEXPIRYDATE']}">
+				<tr>
+					<td />
+					<td><h:commandButton value="#{messages['button.common.new']}" actionListener="#{listCardExpiryDateAction.doNew}" disabled="#{!listCardExpiryDateAction.search}" styleClass="newButton" /></td>
+				</tr>
+			</mf:privilege>
+			<tr>
+				<td><rich:dataTable id="cardExpiryDateList" columnClasses="text,text,text,text" rows="#{listCardExpiryDateAction.pageSize}" value="#{listCardExpiryDateAction.pageDataModel}" var="vo">
+					
+					<mf:sortableColumn actionListener="#{listCardExpiryDateAction}" widthStyleClass="width-style-120" styleClass="text-align-left" label="#{messages['label.co.cardExpiryDateMaint.coType']}" reRender="cardExpiryDateList"
+						sortExpression="coType">
+						<s:decorate id="s1" rendered="#{vo.add}">
+							<h:inputText styleClass="input width-style-60" value="#{vo.coType}" required="true" maxlength="30">
+								<a4j:support event="onchange" ajaxSingle="true" reRender="s2" />
+								<mv:maxLengthValidator />
+								<s:validate />
+							</h:inputText>
+							<span class="required">*</span>
+						</s:decorate>
+						<h:outputText value="#{vo.coType}" rendered="#{!vo.add}" />
+					</mf:sortableColumn>
+					
+					<mf:sortableColumn widthStyleClass="width-style-60" styleClass="text-align-left" actionListener="#{listCardExpiryDateAction}" label="#{messages['label.co.cardExpiryDateMaint.form']}" reRender="cardExpiryDateList"
+						sortExpression="form">
+						<s:decorate id="s2" rendered="#{vo.add || vo.edit}">
+							<h:inputText styleClass="input width-style-60" value="#{vo.form}" required="true" maxlength="30">
+								<a4j:support event="onchange" ajaxSingle="true" reRender="s2" />
+								<mv:maxLengthValidator />
+								<s:validate />
+							</h:inputText>
+							<span class="required">*</span>
+						</s:decorate>
+						<h:outputText value="#{vo.form}" rendered="#{vo.none}" />
+					</mf:sortableColumn>
+					
+					<mf:sortableColumn widthStyleClass="width-style-120" styleClass="text-align-left" actionListener="#{listCardExpiryDateAction}" label="#{messages['label.co.cardExpiryDateMaint.expiryDate']}" reRender="cardExpiryDateList"
+						sortExpression="expiryDate">
+						<s:decorate id="s3" rendered="#{vo.add || vo.edit}">
+						<h:inputText styleClass="input width-style-180" value="#{vo.expiryDate}" required="true" maxlength="30">
+								<a4j:support event="onchange" ajaxSingle="true" reRender="s3" />
+								<mv:maxLengthValidator />
+								<s:validate />
+							</h:inputText>
+							<span class="required">*</span>
+						</s:decorate>
+						<h:outputText value="#{vo.expiryDate}" rendered="#{vo.none}" />
+						
+					</mf:sortableColumn>
+					
+					<mf:sortableColumn widthStyleClass="width-style-300" styleClass="text-align-left" actionListener="#{listCardExpiryDateAction}" label="#{messages['label.co.cardExpiryDateMaint.description']}" reRender="cardExpiryDateList"
+						sortExpression="description">
+						<s:decorate id="s4" rendered="#{vo.add || vo.edit}">
+							<h:inputText styleClass="input width-style-250" value="#{vo.description}" required="true" maxlength="2">
+								<a4j:support event="onchange" ajaxSingle="true" reRender="s4" />
+								<mv:maxLengthValidator />
+								<s:validate />
+							</h:inputText>
+							<span class="required">*</span>
+						</s:decorate>
+						<h:outputText value="#{vo.description}" rendered="#{vo.none}" />
+					</mf:sortableColumn>
+					
+					<mf:actionColumn actionListener="#{listCardExpiryDateAction}" vo="#{vo}" addPrivilegeId="#{constant['CardExpiryDate.ADD_CARDEXPIRYDATE']}" updatePrivilegeId="#{constant['CardExpiryDate.UPDATE_CARDEXPIRYDATE']}"
+						deletePrivilegeId="#{constant['CardExpiryDate.DELETE_CARDEXPIRYDATE']}" />
+						
+					<f:facet name="footer">
+						<c:if test="#{listCardExpiryDateAction.search and listCardExpiryDateAction.pageDataModel.rowCount>0}">
+							<mf:datascroller page="#{listCardExpiryDateAction.currentPageIndex}" />
+						</c:if>
+					</f:facet>
+				</rich:dataTable></td>
+				<td />
+			</tr>
+		</table>
+	</ui:define>
+</ui:composition>

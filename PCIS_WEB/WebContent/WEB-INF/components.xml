@@ -22,6 +22,7 @@
 		<core:bundle-names>
 			<value>messages</value>
 			<value>messages-sa</value>
+			<value>messages-co</value>
 			<value>menu</value>
 		</core:bundle-names>
 	</core:resource-loader>

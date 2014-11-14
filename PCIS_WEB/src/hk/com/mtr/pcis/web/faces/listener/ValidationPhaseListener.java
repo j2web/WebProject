@@ -209,7 +209,7 @@ public class ValidationPhaseListener implements PhaseListener {
 		// }
 		// }
 		isAuth = functionList != null && !functionList.isEmpty();
-
+		
 		if (isAuth) {
 			if (log.isDebugEnabled()) {
 				log.debug("Authorized: User \"" + userId + "\" has permission to access \"" + url + "\"");

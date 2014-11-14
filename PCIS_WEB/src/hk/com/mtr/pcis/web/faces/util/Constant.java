@@ -218,16 +218,18 @@ public class Constant {
 		public static final String DELETE_COMPANYTYPE = "M2001-D";
 	}
 
+	//与PCI_FUNC_DETAIL对应的菜单ID
+	//PCI_FUNC_DETAIL 是配置对应菜单对相应页面操作的权限
 	public static class CardExpiryDate {
-		public static final String SEARCH_CARDEXPIRYDATE = "M2002-S";
+		public static final String SEARCH_CARDEXPIRYDATE = "M2004-S";
 
-		public static final String ADD_CARDEXPIRYDATE = "M2002-A";
+		public static final String ADD_CARDEXPIRYDATE = "M2004-A";
 
-		public static final String UPDATE_CARDEXPIRYDATE = "M2002-U";
+		public static final String UPDATE_CARDEXPIRYDATE = "M2004-U";
 
-		public static final String DELETE_CARDEXPIRYDATE = "M2002-D";
+		public static final String DELETE_CARDEXPIRYDATE = "M2004-D";
 
-		public static final String UPDATE_YEAR_CARDEXPIRYDATE = "M2002-UPDATE-YEAR";
+		public static final String UPDATE_YEAR_CARDEXPIRYDATE = "M2004-UPDATE-YEAR";
 	}
 
 	public static class Company {
