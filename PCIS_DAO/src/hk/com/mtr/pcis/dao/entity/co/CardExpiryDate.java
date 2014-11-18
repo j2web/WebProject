@@ -2,6 +2,7 @@ package hk.com.mtr.pcis.dao.entity.co;
 
 import hk.com.mtr.pcis.dao.entity.sa.User;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -17,8 +18,10 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
 @Table(name="CARD_EXPIRY_DATE")
-public class CardExpiryDate {
-	
+public class CardExpiryDate implements Serializable{
+
+	private static final long serialVersionUID = 2723482729713296989L;
+
 	public CardExpiryDate() {
 		super();
 	}

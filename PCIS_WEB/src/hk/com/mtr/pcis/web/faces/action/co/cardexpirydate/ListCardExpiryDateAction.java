@@ -76,9 +76,10 @@ public class ListCardExpiryDateAction extends TxnListBaseAction {
 		CardExpiryDateVO cardExpiryDateVO = (CardExpiryDateVO) this.currentVO;
 		
 		boolean exist = false;
+		
 		String companyType = cardExpiryDateVO.getCoType();
 		Integer form = cardExpiryDateVO.getForm();
-		System.out.println("companyType:" + companyType + "  form:" + form);
+		System.out.println("haha  -----  companyType:" + companyType + "  form:" + form);
 		
 		CardExpiryDateVO tempVO = cardExpiryDateFacade.findByCompanyTypeAndForm(companyType, form);
 		exist = tempVO != null;

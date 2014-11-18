@@ -10,7 +10,7 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="openjpa.ConnectionDriverName" value="oracle.jdbc.OracleDriver" />
-			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@10.199.130.210:1521:storange" />
+			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl" />
 			<property name="openjpa.ConnectionUserName" value="pcisusr" />
 			<property name="openjpa.ConnectionPassword" value="pcisusr" />
 			<property name="openjpa.Log" value="log4j" />

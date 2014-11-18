@@ -22,10 +22,13 @@
 				<td><rich:dataTable id="cardExpiryDateList" columnClasses="text,text,text,text" rows="#{listCardExpiryDateAction.pageSize}" value="#{listCardExpiryDateAction.pageDataModel}" var="vo">
 					
 					<mf:sortableColumn actionListener="#{listCardExpiryDateAction}" widthStyleClass="width-style-120" styleClass="text-align-left" label="#{messages['label.co.cardExpiryDateMaint.coType']}" reRender="cardExpiryDateList"
-						sortExpression="coType">
+						sortExpression="coType" >
 						<s:decorate id="s1" rendered="#{vo.add}">
-							<h:inputText styleClass="input width-style-60" value="#{vo.coType}" required="true" maxlength="30">
-								<a4j:support event="onchange" ajaxSingle="true" reRender="s2" />
+							<!--<h:selectOneMenu value="#{vo.coType}">
+								<s:selectItems var="item" value="#{listbox.allStation}" label="#{item.stationCode}" noSelectionLabel="" itemValue="#{item.stationNo}" />
+							</h:selectOneMenu>
+							--><h:inputText styleClass="input width-style-60" value="#{vo.coType}" required="true" maxlength="7">
+								<a4j:support event="onchange" ajaxSingle="true" reRender="s1" />
 								<mv:maxLengthValidator />
 								<s:validate />
 							</h:inputText>
@@ -37,7 +40,7 @@
 					<mf:sortableColumn widthStyleClass="width-style-60" styleClass="text-align-left" actionListener="#{listCardExpiryDateAction}" label="#{messages['label.co.cardExpiryDateMaint.form']}" reRender="cardExpiryDateList"
 						sortExpression="form">
 						<s:decorate id="s2" rendered="#{vo.add || vo.edit}">
-							<h:inputText styleClass="input width-style-60" value="#{vo.form}" required="true" maxlength="30">
+							<h:inputText styleClass="input width-style-60" value="#{vo.form}" required="true" maxlength="3">
 								<a4j:support event="onchange" ajaxSingle="true" reRender="s2" />
 								<mv:maxLengthValidator />
 								<s:validate />
@@ -50,7 +53,7 @@
 					<mf:sortableColumn widthStyleClass="width-style-120" styleClass="text-align-left" actionListener="#{listCardExpiryDateAction}" label="#{messages['label.co.cardExpiryDateMaint.expiryDate']}" reRender="cardExpiryDateList"
 						sortExpression="expiryDate">
 						<s:decorate id="s3" rendered="#{vo.add || vo.edit}">
-						<h:inputText styleClass="input width-style-180" value="#{vo.expiryDate}" required="true" maxlength="30">
+						<h:inputText styleClass="input width-style-180" value="#{vo.expiryDate}" required="true">
 								<a4j:support event="onchange" ajaxSingle="true" reRender="s3" />
 								<mv:maxLengthValidator />
 								<s:validate />
@@ -64,7 +67,7 @@
 					<mf:sortableColumn widthStyleClass="width-style-300" styleClass="text-align-left" actionListener="#{listCardExpiryDateAction}" label="#{messages['label.co.cardExpiryDateMaint.description']}" reRender="cardExpiryDateList"
 						sortExpression="description">
 						<s:decorate id="s4" rendered="#{vo.add || vo.edit}">
-							<h:inputText styleClass="input width-style-250" value="#{vo.description}" required="true" maxlength="2">
+							<h:inputText styleClass="input width-style-250" value="#{vo.description}" required="false" maxlength="30">
 								<a4j:support event="onchange" ajaxSingle="true" reRender="s4" />
 								<mv:maxLengthValidator />
 								<s:validate />
