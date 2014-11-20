@@ -2,6 +2,7 @@ package hk.com.mtr.pcis.criteria.co;
 
 import hk.com.mtr.pcis.criteria.AppBaseCriteriaVO;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class CardExpiryDateCriteriaVO extends AppBaseCriteriaVO {
@@ -15,6 +16,17 @@ public class CardExpiryDateCriteriaVO extends AppBaseCriteriaVO {
 	private Date expiryDate;
 	
 	private String description;
+	
+	private Timestamp updateTime;
+	
+	public Timestamp getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Timestamp updateTime) {
+		System.out.println("set ============== " + updateTime);
+		this.updateTime = updateTime;
+	}
 
 	public String getCoType() {
 		return coType;

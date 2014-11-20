@@ -1,17 +1,14 @@
 package hk.com.mtr.pcis.dao.entity.co;
 
-import hk.com.mtr.pcis.dao.entity.sa.User;
+
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -22,43 +19,44 @@ public class CardExpiryDate implements Serializable{
 
 	private static final long serialVersionUID = 2723482729713296989L;
 
+	
 	public CardExpiryDate() {
 		super();
 	}
 
-	public CardExpiryDate(String coType, Integer form, Date expiryDate,
-			String description, String updateUser, Timestamp updateTime) {
+	public CardExpiryDate(ConsumerGroupMapPK consumerGroupMapPK, Integer form,
+			Date expiryDate, String description, String updateUser) {
 		super();
-		this.coType = coType;
+		this.consumerGroupMapPK = consumerGroupMapPK;
 		this.form = form;
 		this.expiryDate = expiryDate;
 		this.description = description;
 		this.updateUser = updateUser;
-		this.updateTime = updateTime;
 	}
 	
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(getCoType()).toHashCode();
+		return new HashCodeBuilder().append(this.getConsumerGroupMapPK())
+									.toHashCode();
 	}
 
 	@Override
 	public boolean equals(Object object) {
 		if ((this == object))
 			return true;
-		if (object == null || !(object instanceof User)) {
+		if (object == null || !(object instanceof CardExpiryDate)) {
 			return false;
 		}
 		CardExpiryDate other = (CardExpiryDate) object;
 
-		boolean equal = new EqualsBuilder().append(this.getCoType(), other.getCoType()).isEquals();
+		boolean equal = new EqualsBuilder().append(this.getConsumerGroupMapPK(), other.getConsumerGroupMapPK())
+										   .isEquals();
 		return equal;
 	}
 
-	@Id
-	@Column(name="CO_TYPE", nullable=false, length=7)
-	private String coType;
+	@EmbeddedId
+	private ConsumerGroupMapPK consumerGroupMapPK;
 	
 	@Column(name="FORM", nullable=true, length=2)
 	private Integer form;
@@ -72,18 +70,7 @@ public class CardExpiryDate implements Serializable{
 	@Column(name="UPDUSER", nullable=true, length=15)
 	private String updateUser;
 
-	@Column(name="UPDTIME", nullable=false)
-	@Temporal(value=TemporalType.TIMESTAMP)
-	private Timestamp updateTime;
 	
-	public String getCoType() {
-		return coType;
-	}
-
-	public void setCoType(String coType) {
-		this.coType = coType;
-	}
-
 	public Integer getForm() {
 		return form;
 	}
@@ -116,14 +103,12 @@ public class CardExpiryDate implements Serializable{
 		this.updateUser = updateUser;
 	}
 
-	public Timestamp getUpdateTime() {
-		return updateTime;
+	public ConsumerGroupMapPK getConsumerGroupMapPK() {
+		return consumerGroupMapPK;
 	}
 
-	public void setUpdateTime(Timestamp updateTime) {
-		this.updateTime = updateTime;
+	public void setConsumerGroupMapPK(ConsumerGroupMapPK consumerGroupMapPK) {
+		this.consumerGroupMapPK = consumerGroupMapPK;
 	}
-	
-	
-	
+
 }

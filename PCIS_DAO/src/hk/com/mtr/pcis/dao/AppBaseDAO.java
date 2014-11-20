@@ -1,7 +1,6 @@
 package hk.com.mtr.pcis.dao;
 
 import hk.com.mtr.pcis.criteria.PageInfoVO;
-import hk.com.mtr.pcis.dao.entity.co.CardExpiryDate;
 import hk.com.mtr.pcis.enums.OrderMode;
 import hk.com.mtr.pcis.util.StringUtil;
 
@@ -126,19 +125,11 @@ public class AppBaseDAO {
 			if (type == null) {
 				query = this.entityManager.createNativeQuery(sql);
 			} else {
-				System.out.println("createQuery: " + type);
 				query = this.entityManager.createNativeQuery(sql, type);
-				if (type.equals(CardExpiryDate.class)) {
-					List<CardExpiryDate> cs = query.getResultList();
-					for (CardExpiryDate d : cs) {
-						System.out.println("evan === coType:" + d.getCoType() + "  , form:" + d.getForm());
-					}
-				}
 			}
 		} else {
 			query = this.entityManager.createQuery(sql);
 		}
-
 		if (parameterMap.size() != 0) {
 			java.util.Iterator it = parameterMap.entrySet().iterator();
 			while (it.hasNext()) {
@@ -187,7 +178,6 @@ public class AppBaseDAO {
 	
 	protected Query createPagedQuery(PageInfoVO pageInfoVO, String sql,
 			Map<?, Object> parameterMap, boolean isNative, Class<?> type) {
-		System.out.println("pagedQuery: " + type);
 		Query query = this.createQuery(sql, parameterMap, type, isNative);
 		
 		query.setFirstResult(pageInfoVO.getStartRow());

@@ -1,10 +1,14 @@
 package hk.com.mtr.pcis.web.faces.action.co.cardexpirydate;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 import javax.faces.validator.ValidatorException;
 
 import org.jboss.seam.annotations.Name;
@@ -20,11 +24,12 @@ import hk.com.mtr.pcis.vo.co.CardExpiryDateVO;
 import hk.com.mtr.pcis.web.faces.action.TxnListBaseAction;
 
 @Name("listCardExpiryDateAction")
-public class ListCardExpiryDateAction extends TxnListBaseAction {
+public class ListCardExpiryDateAction extends TxnListBaseAction implements ActionListener {
 
 	private static final long serialVersionUID = 5590415315316689187L;
 	
 	private CardExpiryDateCriteriaVO cardExpiryDateCriteriaVO;
+	
 	
 	public CardExpiryDateCriteriaVO getCardExpiryDateCriteriaVO() {
 		return cardExpiryDateCriteriaVO;
@@ -36,6 +41,7 @@ public class ListCardExpiryDateAction extends TxnListBaseAction {
 
 	@Override
 	protected List<CardExpiryDateVO> fetchPage(PageInfoVO pageInfoVO) throws Exception {
+//		System.out.println("list: ======================  " + this.cardExpiryDateCriteriaVO.getCoType());
 		CardExpiryDateFacade cardExpiryDateFacade = getService(CardExpiryDateFacade.class);
 		List<CardExpiryDateVO> cardExpiryDateList = cardExpiryDateFacade.findAllCardExpiryDateByPage(cardExpiryDateCriteriaVO, pageInfoVO);
 
@@ -50,18 +56,24 @@ public class ListCardExpiryDateAction extends TxnListBaseAction {
 	@Override
 	protected void onDelete() throws Exception {
 		CardExpiryDateFacade CardExpiryDateFacade = getService(CardExpiryDateFacade.class);
-		CardExpiryDateVO CardExpiryDateVO = (CardExpiryDateVO) this.currentVO;
-		String coType = CardExpiryDateVO.getCoType();
+		CardExpiryDateVO cardExpiryDateVO = (CardExpiryDateVO) this.currentVO;
+		String coType = cardExpiryDateVO.getCoType();
+		Timestamp updateTime = cardExpiryDateVO.getUpdateTime();
 
-		CardExpiryDateFacade.deleteCardExpiryDate(coType);
+		CardExpiryDateFacade.deleteCardExpiryDate(coType, updateTime);
 		facesMessages.addFromResourceBundle(StatusMessage.Severity.INFO, "msg.co.cardExpiryDateMaint.deletedSuccess", coType);
 		this.refresh();
 	}
 
 	@Override
 	protected void onEdit() throws Exception {
-		// TODO Auto-generated method stub
-		
+	}
+	
+	//更新所有过期年份
+	protected void doUpdateExpiryDate() throws Exception {
+		CardExpiryDateFacade cardExpiryDateFacade = getService(CardExpiryDateFacade.class);
+		cardExpiryDateFacade.updateYear();
+		this.refresh();
 	}
 
 	@Override
@@ -96,7 +108,6 @@ public class ListCardExpiryDateAction extends TxnListBaseAction {
 			this.refresh();
 
 		}
-		cardExpiryDateFacade.insertCardExpiryDate(cardExpiryDateVO );
 		
 	}
 
@@ -111,6 +122,7 @@ public class ListCardExpiryDateAction extends TxnListBaseAction {
 		facesMessages.addFromResourceBundle(StatusMessage.Severity.INFO, "msg.co.cardExpiryDateMaint.updatedSuccess", coType);
 		cardExpiryDateCriteriaVO = new CardExpiryDateCriteriaVO();
 		cardExpiryDateCriteriaVO.setCoType(coType);
+		cardExpiryDateCriteriaVO.setUpdateTime(cardExpiryDateVO.getUpdateTime());
 		this.refresh();
 		
 	}
@@ -118,8 +130,10 @@ public class ListCardExpiryDateAction extends TxnListBaseAction {
 	@Override
 	protected void onLoad() {
 		this.cardExpiryDateCriteriaVO = this.loadCriteriaVO(CardExpiryDateCriteriaVO.class);
-		this.sortedExpression.add("coType");
+		this.sortedExpression.add("consumerGroupMapPK.coType");
 		this.sortedExpression.add("form");
+		this.sortedExpression.add("expiryDate");
+		this.sortedExpression.add("description");
 		
 	}
 	
@@ -130,6 +144,15 @@ public class ListCardExpiryDateAction extends TxnListBaseAction {
 				FacesMessage msg = MessageFactory.getMessage(context, "com.mtrc.pcis.companyTypeValidator.COTYPE", value.toString());
 				throw new ValidatorException(msg);
 			}
+		}
+	}
+
+	@Override
+	public void processAction(ActionEvent arg0) throws AbortProcessingException {
+		try {
+			doUpdateExpiryDate();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

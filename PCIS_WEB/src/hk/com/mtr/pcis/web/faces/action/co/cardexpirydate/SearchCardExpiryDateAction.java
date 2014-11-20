@@ -28,6 +28,7 @@ public class SearchCardExpiryDateAction extends SearchBaseAction{
 	@Override
 	protected String onSearch() {
 		this.saveCriteriaVO(cardExpiryDateCriteriaVO);
+//		System.out.println("Search: =========== " + cardExpiryDateCriteriaVO.getCoType());
 		return "/co/cardExpiryDate/listCardExpiryDate.xhtml";
 	}
 

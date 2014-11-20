@@ -5,6 +5,8 @@ import hk.com.mtr.pcis.criteria.co.CardExpiryDateCriteriaVO;
 import hk.com.mtr.pcis.exception.BusinessException;
 import hk.com.mtr.pcis.vo.co.CardExpiryDateVO;
 
+import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -22,6 +24,9 @@ public interface CardExpiryDateFacade {
 
 	public void updateCardExpiryDate(CardExpiryDateVO cardExpiryDateVO) throws BusinessException;
 
-	public void deleteCardExpiryDate(String companyType) throws BusinessException;
+	public void deleteCardExpiryDate(String companyType, Timestamp updateTime) throws BusinessException;
 
+	public void updateYear();
+
+	public List<CardExpiryDateVO> findAllCompanyType();
 }

@@ -1,23 +1,19 @@
 package hk.com.mtr.pcis.vo.co;
 
-import java.util.Date;
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import hk.com.mtr.pcis.vo.AppBaseVO;
 
-public class CardExpiryDateVO extends AppBaseVO {
+public class CompanyTypeVO extends AppBaseVO {
 
 	private static final long serialVersionUID = -6947487341575148559L;
 
 	private String coType;
 	
-	private Integer form;
-
-	private Date expiryDate;
+	private Integer adminFee;
 	
 	private String description;
-	
+		
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -27,22 +23,18 @@ public class CardExpiryDateVO extends AppBaseVO {
 			return false;
 		}
 
-		CardExpiryDateVO other = (CardExpiryDateVO) o;
+		CompanyTypeVO other = (CompanyTypeVO) o;
 
 		if (getCoType() == null) {
 			return false;
 		}
-		
-		if (getUpdateTime() == null) {
-			return false;
-		}
 
-		return  getCoType().equals(other.getCoType()) &&  getUpdateTime().equals(other.getUpdateTime());
+		return getCoType().equals(other.getCoType());
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(this.getCoType()).append(this.getUpdateTime()).toHashCode();
+		return new HashCodeBuilder().append(this.getCoType()).toHashCode();
 	}
 
 	public String getCoType() {
@@ -53,20 +45,12 @@ public class CardExpiryDateVO extends AppBaseVO {
 		this.coType = coType;
 	}
 
-	public Integer getForm() {
-		return form;
+	public Integer getAdminFee() {
+		return adminFee;
 	}
 
-	public void setForm(Integer form) {
-		this.form = form;
-	}
-
-	public Date getExpiryDate() {
-		return expiryDate;
-	}
-
-	public void setExpiryDate(Date expiryDate) {
-		this.expiryDate = expiryDate;
+	public void setAdminFee(Integer adminFee) {
+		this.adminFee = adminFee;
 	}
 
 	public String getDescription() {
@@ -76,5 +60,7 @@ public class CardExpiryDateVO extends AppBaseVO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
 
 }

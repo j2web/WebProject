@@ -108,7 +108,6 @@ public class TestCardExpiryDateDAO extends AppBaseTestCase {
 			Query query = em.createNativeQuery(sql, CardExpiryDate.class);
 			List<CardExpiryDate> cs = query.getResultList();
 			for (CardExpiryDate ced : cs) {
-				System.out.println(ced.getCoType() + "  +  " + ced.getForm());
 			}
 			
 			em.close();

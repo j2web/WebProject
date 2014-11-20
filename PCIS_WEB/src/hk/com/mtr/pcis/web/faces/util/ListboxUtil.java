@@ -1,8 +1,12 @@
 package hk.com.mtr.pcis.web.faces.util;
 
 import hk.com.mtr.pcis.exception.BusinessException;
+import hk.com.mtr.pcis.facade.co.CardExpiryDateFacade;
+import hk.com.mtr.pcis.facade.co.CompanyTypeFacade;
 import hk.com.mtr.pcis.facade.mf.StationFacade;
 import hk.com.mtr.pcis.facade.sa.ParameterFacade;
+import hk.com.mtr.pcis.vo.co.CardExpiryDateVO;
+import hk.com.mtr.pcis.vo.co.CompanyTypeVO;
 import hk.com.mtr.pcis.vo.mf.StationVO;
 import hk.com.mtr.pcis.vo.sa.ParameterVO;
 import java.io.Serializable;
@@ -32,7 +36,35 @@ public class ListboxUtil implements Serializable {
 	private static List<Entry<String,String>>allRelationship = new ArrayList<Entry<String,String>>();
 	private static Map<String, String> companyCodeNameMap = new HashMap<String, String>();
 	private static List<String> rejectReason = new java.util.ArrayList<String>();
-	private static List<StationVO> allStation = new java.util.ArrayList<StationVO>();;
+	private static List<StationVO> allStation = new java.util.ArrayList<StationVO>();
+	private static List<CompanyTypeVO> allCompanyType = new java.util.ArrayList<CompanyTypeVO>();
+	private static List<CardExpiryDateVO> allCoType = new java.util.ArrayList<CardExpiryDateVO>();
+
+	public List<CompanyTypeVO> getAllCompanyType() {
+		if (allCompanyType.isEmpty()) {
+			synchronized (allCompanyType) {
+				if (allCompanyType.isEmpty()) {
+					CompanyTypeFacade companyTypeFacade = ServiceUtil.getService(CompanyTypeFacade.class);
+					allCompanyType.addAll(companyTypeFacade.findAllCompanyType());
+				}
+			}
+		}
+		
+		return allCompanyType;
+	}
+	
+	public List<CardExpiryDateVO> getAllCoType() {
+		if (allCoType.isEmpty()) {
+			synchronized (allCoType) {
+				if (allCoType.isEmpty()) {
+					CardExpiryDateFacade companyTypeFacade = ServiceUtil.getService(CardExpiryDateFacade.class);
+					allCoType.addAll(companyTypeFacade.findAllCompanyType());
+				}
+			}
+		}
+		
+		return allCoType;
+	}
 
 	public List<StationVO> getAllStation() throws BusinessException {
 
@@ -97,7 +129,7 @@ public class ListboxUtil implements Serializable {
 					rejectReason.add("The applicant cancelled the application.");
 					rejectReason.add("Already applied for a replacement card via Card Company. App. is not required.");
 					rejectReason.add("Application for a new card without reporting loss of card to Octopus Company.");
-					rejectReason.add("'Student Status' cannot be recorded on the P-Card with “PwD Status”.");
+					rejectReason.add("'Student Status' cannot be recorded on the P-Card with “PwD Status 1�7.");
 					rejectReason.add("Card not SPO.");
 					rejectReason.add("Not eligible course.");
 					rejectReason.add("Others");

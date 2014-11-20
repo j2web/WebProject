@@ -6,6 +6,7 @@ import hk.com.mtr.pcis.dao.co.CardExpiryDateDAO;
 import hk.com.mtr.pcis.exception.BusinessException;
 import hk.com.mtr.pcis.vo.co.CardExpiryDateVO;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,11 +17,6 @@ public class CardExpiryDateFacadeBean implements CardExpiryDateFacade {
 	
 	@EJB
 	CardExpiryDateDAO cardExpiryDateDAO;
-
-	@Override
-	public void deleteCardExpiryDate(String companyType) throws BusinessException {
-		this.cardExpiryDateDAO.deleteCardExpiryDate(companyType);
-	}
 
 	@Override
 	public List<CardExpiryDateVO> findAllCardExpiryDateByPage(
@@ -68,6 +64,23 @@ public class CardExpiryDateFacadeBean implements CardExpiryDateFacade {
 			Integer form) throws BusinessException {
 		
 		return this.cardExpiryDateDAO.findByCompanyTypeAndForm(companyType, form);
+	}
+
+	@Override
+	public void deleteCardExpiryDate(String companyType, Timestamp updateTime)
+			throws BusinessException {
+		this.cardExpiryDateDAO.deleteCardExpiryDate(companyType, updateTime);
+	}
+
+	@Override
+	public void updateYear() {
+		this.cardExpiryDateDAO.updateYear();
+		
+	}
+
+	@Override
+	public List<CardExpiryDateVO> findAllCompanyType() {
+		return this.cardExpiryDateDAO.finAllCompanyType();
 	}
 
 	

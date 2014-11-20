@@ -25,7 +25,6 @@ public class FunctionUtil {
 		Map<String, Object> requestMap = FacesUtil.getFacesContext().getExternalContext().getRequestMap();
 		Boolean isAuth = (Boolean) requestMap.get(key);
 		if (isAuth == null) {
-
 			SystemUser systemUser = hk.com.mtr.pcis.web.faces.util.FacesUtil.getCurrentUser();
 
 			if (systemUser != null && StringUtil.isNotEmpty(functionId)) {
